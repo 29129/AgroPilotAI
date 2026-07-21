@@ -2,6 +2,7 @@ import type { Prisma, RecommendationCategory } from '@prisma/client';
 import { prisma } from '../../database/prisma.js';
 import { AppError, notFound } from '../../common/errors/app-error.js';
 import { ownedCrop } from '../agriculture/agriculture.service.js';
+import { getOpenMeteoForecast } from '../../integrations/open-meteo.service.js';
 
 type Actor = { id: string; role: 'PRODUCER' | 'TECHNICIAN' | 'ADMIN' };
 type Agent = 'CLIMATE' | 'HEALTH' | 'IRRIGATION' | 'MARKET';
@@ -11,7 +12,7 @@ const action = (label: string, description: string) => ({ id: crypto.randomUUID(
 export const intelligenceService = {
   async weather(cropId: string, actor: Actor) {
     const crop = await ownedCrop(cropId, actor.id, actor.role);
-    return { cropId, location: { province: crop.plot.farm.province, canton: crop.plot.farm.canton, latitude: crop.plot.farm.latitude, longitude: crop.plot.farm.longitude }, source: 'AgroPilot forecast adapter (demo)', observedAt: new Date().toISOString(), forecast: [{ date: new Date().toISOString(), precipitationMm: 2, maxTemperatureC: 29, minTemperatureC: 21, condition: 'Partly cloudy' }] };
+    return { cropId, ...(await getOpenMeteoForecast(crop.plot.farm)) };
   },
   market(product: string, province: string) { return { product, province, currency: 'USD', unit: 'quintal', price: 145, observedAt: new Date().toISOString(), source: 'AgroPilot market adapter (demo)' }; },
   async analyze(cropId: string, actor: Actor, input: { analysisType: 'FULL' | 'QUICK'; include?: Agent[]; userContext?: { currentConcern?: string } }) {
