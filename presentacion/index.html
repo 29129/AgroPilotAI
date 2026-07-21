@@ -923,11 +923,11 @@ html&gt;body{padding:0}&lt;/style&gt;
     #agropilot-deck .counter strong { color: var(--ink); font-weight: 500; }
 
     #agropilot-deck .slide-stage { position: relative; min-height: 0; overflow: hidden; }
-    #agropilot-deck .slide { position: absolute; inset: 0; display: grid; align-items: center; opacity: 0; pointer-events: none; transform: translate3d(30px, 0, 0); transition: opacity .48s ease, transform .58s cubic-bezier(.2,.8,.2,1); }
+    #agropilot-deck .slide { position: absolute; inset: 0; display: block; overflow-y: auto; overscroll-behavior: contain; opacity: 0; pointer-events: none; transform: translate3d(30px, 0, 0); transition: opacity .48s ease, transform .58s cubic-bezier(.2,.8,.2,1); }
     #agropilot-deck .slide.is-active { opacity: 1; pointer-events: auto; transform: translate3d(0, 0, 0); }
     #agropilot-deck .slide.is-exiting { opacity: 0; transform: translate3d(-30px, 0, 0); }
 
-    #agropilot-deck .slide-inner { width: min(1180px, 100%); margin: 0 auto; }
+    #agropilot-deck .slide-inner { width: min(1180px, 100%); min-height: 100%; margin: 0 auto; padding-block: clamp(8px, 2vh, 20px); align-content: center; }
     #agropilot-deck .title-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); align-items: end; gap: clamp(28px, 6vw, 90px); }
     #agropilot-deck .section-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .9fr); align-items: center; gap: clamp(28px, 6vw, 90px); }
     #agropilot-deck .wide-layout { display: grid; gap: clamp(24px, 4vw, 54px); }
@@ -1221,7 +1221,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;/main&gt;
 
     &lt;footer class=&quot;deck-bottom&quot;&gt;
-      &lt;span class=&quot;footer-note&quot;&gt;Usa ← →, espacio o los controles&lt;/span&gt;
+      &lt;span class=&quot;footer-note&quot;&gt;Usa ← →, espacio o desplázate con el zoom&lt;/span&gt;
       &lt;div class=&quot;progress&quot; aria-label=&quot;Progreso de la presentación&quot;&gt;&lt;span id=&quot;deck-progress&quot;&gt;&lt;/span&gt;&lt;/div&gt;
       &lt;div class=&quot;controls&quot; aria-label=&quot;Controles de presentación&quot;&gt;
         &lt;button class=&quot;deck-button&quot; type=&quot;button&quot; id=&quot;deck-prev&quot; aria-label=&quot;Diapositiva anterior&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m15 18-6-6 6-6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
