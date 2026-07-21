@@ -29,7 +29,17 @@ export interface AuthSession {
   user: User;
   accessToken: string;
   refreshToken?: string;
+  expiresIn?: string;
   expiresAt?: IsoDateString;
+}
+
+export interface ApiAuthPayload {
+  user: User;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+    expiresIn: string;
+  };
 }
 
 export interface RefreshSessionInput {

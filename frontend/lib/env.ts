@@ -6,8 +6,6 @@ function getOptionalPublicVariable(name: string): string | undefined {
 const mockMode = getOptionalPublicVariable("NEXT_PUBLIC_USE_MOCKS");
 
 export const runtimeConfig = {
-  apiUrl: getOptionalPublicVariable("NEXT_PUBLIC_API_URL"),
-  // The frontend remains explorable before a backend environment is available.
-  // Set NEXT_PUBLIC_USE_MOCKS=false to route every service to the real API.
-  useMocks: mockMode === undefined ? true : mockMode === "true",
+  apiUrl: getOptionalPublicVariable("NEXT_PUBLIC_API_URL") ?? "http://localhost:4000/api/v1",
+  useMocks: mockMode === "true",
 } as const;

@@ -1,4 +1,5 @@
 import { runtimeConfig } from "@/lib/env";
+import { getAccessToken } from "@/services/auth-session";
 import {
   type ApiFailure,
   type ApiResponse,
@@ -89,6 +90,10 @@ async function parseResponse(response: Response): Promise<unknown> {
 async function request<T>(path: string, options: ApiRequestOptions = {}): Promise<T> {
   const headers = new Headers(options.headers);
   headers.set("Accept", "application/json");
+  const accessToken = getAccessToken();
+  if (accessToken && !headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${accessToken}`);
+  }
 
   let body: BodyInit | undefined;
   if (options.body !== undefined && options.body !== null) {
