@@ -1,0 +1,385 @@
+.page {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.25rem 0 0.45rem;
+}
+
+.intro h2,
+.intro p {
+  margin: 0;
+}
+
+.intro h2 {
+  max-width: 20ch;
+  font-size: clamp(1.45rem, 2.8vw, 2rem);
+  letter-spacing: -0.045em;
+}
+
+.intro > div > p:last-child {
+  max-width: 44rem;
+  margin-top: 0.65rem;
+  color: var(--text-secondary);
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+
+.workspace {
+  display: grid;
+  min-height: min(44rem, calc(100vh - 11rem));
+  grid-template-columns: minmax(14.5rem, 0.72fr) minmax(0, 1.65fr);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--background-secondary);
+}
+
+.conversationPane {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border-right: 1px solid rgb(255 255 255 / 8%);
+  background: rgb(0 0 0 / 14%);
+}
+
+.paneHeader,
+.chatHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.paneHeader {
+  padding: 1.25rem 1.15rem 0.9rem;
+}
+
+.paneHeader h2,
+.paneHeader p,
+.chatHeader h2,
+.chatHeader p {
+  margin: 0;
+}
+
+.paneHeader h2,
+.chatHeader h2 {
+  font-size: 0.98rem;
+  letter-spacing: -0.02em;
+}
+
+.paneHeader p {
+  margin-top: 0.27rem;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.paneHeader > span {
+  display: grid;
+  min-width: 1.65rem;
+  height: 1.65rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 11%);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.createConversation {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.2rem 1.15rem 1.05rem;
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+}
+
+.createConversation label {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.createConversation input,
+.createConversation select,
+.composer textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0.62rem;
+  background: var(--background-primary);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+.createConversation input,
+.createConversation select {
+  min-height: 2.45rem;
+  padding: 0.55rem 0.66rem;
+  font-size: 0.76rem;
+}
+
+.createConversation select {
+  color: var(--text-secondary);
+}
+
+.createConversation button {
+  width: 100%;
+  min-height: 2.4rem;
+  padding: 0.55rem;
+  border-radius: 0.62rem;
+  font-size: 0.76rem;
+}
+
+.conversationList {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+  padding: 0.65rem;
+}
+
+.conversationList ul,
+.references {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.conversationItem {
+  display: grid;
+  width: 100%;
+  gap: 0.3rem;
+  padding: 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 0.72rem;
+  background: transparent;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+.conversationItem:hover {
+  border-color: rgb(255 255 255 / 8%);
+  background: rgb(255 255 255 / 4%);
+  color: var(--text-primary);
+}
+
+.conversationItem.selected {
+  border-color: rgb(220 38 38 / 36%);
+  background: rgb(220 38 38 / 13%);
+  color: #fff;
+}
+
+.conversationItem strong {
+  overflow: hidden;
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conversationItem span {
+  color: #8e949d;
+  font-size: 0.67rem;
+}
+
+.chatPane {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.chatPane > :global(.async-state) {
+  align-self: center;
+  margin: 1.25rem;
+}
+
+.chatHeader {
+  padding: 1.25rem 1.4rem;
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+}
+
+.chatHeader p {
+  color: #9ca3af;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.chatHeader h2 {
+  margin-top: 0.35rem;
+  font-size: 1.05rem;
+}
+
+.messages {
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  min-height: 12rem;
+  overflow: auto;
+  padding: 1.25rem 1.4rem;
+}
+
+.message {
+  max-width: min(87%, 42rem);
+  padding: 0.85rem 0.9rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 0.8rem;
+  background: var(--surface);
+}
+
+.assistantMessage {
+  justify-self: start;
+}
+
+.userMessage {
+  justify-self: end;
+  border-color: rgb(220 38 38 / 38%);
+  background: rgb(127 29 29 / 26%);
+}
+
+.messageMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: #aeb4bc;
+  font-size: 0.65rem;
+}
+
+.messageMeta strong {
+  color: #f3f4f6;
+  font-size: 0.7rem;
+}
+
+.message p {
+  margin: 0.55rem 0 0;
+  color: #e5e7eb;
+  font-size: 0.82rem;
+  line-height: 1.58;
+  white-space: pre-wrap;
+}
+
+.references {
+  grid-template-columns: repeat(auto-fit, minmax(9rem, max-content));
+  margin-top: 0.7rem;
+}
+
+.references li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #c5cad1;
+  font-size: 0.65rem;
+}
+
+.references span {
+  padding: 0.18rem 0.3rem;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 0.32rem;
+  color: #fca5a5;
+  font-size: 0.56rem;
+  font-weight: 800;
+}
+
+.composer {
+  padding: 1rem 1.4rem 1.25rem;
+  border-top: 1px solid rgb(255 255 255 / 8%);
+  background: rgb(0 0 0 / 11%);
+}
+
+.composer textarea {
+  min-height: 5.35rem;
+  resize: vertical;
+  padding: 0.72rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.composerFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.65rem;
+}
+
+.composerFooter p,
+.formError {
+  margin: 0;
+  color: #aeb4bc;
+  font-size: 0.68rem;
+  line-height: 1.45;
+}
+
+.composerFooter button {
+  flex: 0 0 auto;
+  min-height: 2.45rem;
+  border-radius: 0.62rem;
+  font-size: 0.76rem;
+}
+
+.formError {
+  color: #fca5a5;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 850px) {
+  .workspace {
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .conversationPane {
+    border-right: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 8%);
+  }
+
+  .conversationList {
+    max-height: 14.5rem;
+  }
+
+  .chatPane {
+    min-height: 34rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .intro,
+  .composerFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .intro > :last-child {
+    align-self: flex-start;
+  }
+
+  .chatHeader,
+  .messages,
+  .composer {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .message {
+    max-width: 94%;
+  }
+
+  .composerFooter button {
+    width: 100%;
+  }
+}
