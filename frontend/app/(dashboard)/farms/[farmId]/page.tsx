@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import { EmptyState, ErrorState, LoadingState } from "@/components/ui/AsyncState";
 import { SectionCard } from "@/components/ui/SectionCard";
-import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useCrops } from "@/hooks/use-crops";
 import { useCreatePlot, useFarm, useFarmPlots } from "@/hooks/use-farms";
 import type { Crop } from "@/types/crops";

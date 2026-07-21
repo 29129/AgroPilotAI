@@ -181,6 +181,7 @@ export const mockApi = {
     },
 
     async refresh(_input?: RefreshSessionInput): Promise<AuthSession> {
+      void _input;
       const session = required(state.session ?? undefined, "Session");
       state.session = sessionFor(session.user);
       return clone(state.session);
@@ -338,6 +339,7 @@ export const mockApi = {
 
   recommendations: {
     async runAnalysis(cropId: string, _input: CreateCropAnalysisInput): Promise<CropAnalysis> {
+      void _input;
       required(state.crops.find((item) => item.id === cropId), "Crop");
       const recommendations = state.recommendations.filter((item) => item.cropId === cropId);
       return clone({
@@ -389,6 +391,7 @@ export const mockApi = {
     },
 
     async reject(recommendationId: string, _input?: RejectRecommendationInput): Promise<Recommendation> {
+      void _input;
       return this.updateStatus(recommendationId, "REJECTED");
     },
 
@@ -448,12 +451,16 @@ export const mockApi = {
         messages: [],
       };
       state.conversations.unshift(conversation);
-      const { messages: _messages, ...result } = conversation;
+      const { messages: hiddenMessages, ...result } = conversation;
+      void hiddenMessages;
       return clone(result);
     },
 
     async list(query?: ListQuery): Promise<Conversation[]> {
-      const conversations = state.conversations.map(({ messages: _messages, ...conversation }) => conversation);
+      const conversations = state.conversations.map(({ messages, ...conversation }) => {
+        void messages;
+        return conversation;
+      });
       return pageItems(conversations, query);
     },
 

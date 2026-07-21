@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 
 import { RecommendationList, WeatherSummary, WeeklyPlanSummary } from "@/components/dashboard";
 import { EmptyState, ErrorState, LoadingState } from "@/components/ui/AsyncState";
-import { SectionCard } from "@/components/ui/SectionCard";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useCrop } from "@/hooks/use-crops";
 import { useCropRecommendations } from "@/hooks/use-recommendations";
