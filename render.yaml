@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: agropilot-api
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: cd backend && npm ci && npm run db:generate && npm run build
+    preDeployCommand: cd backend && npm run db:deploy
+    startCommand: cd backend && npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: PUBLIC_API_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: RESEND_API_KEY
+        sync: false
+      - key: NOTIFICATION_FROM
+        sync: false

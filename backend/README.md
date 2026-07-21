@@ -38,6 +38,10 @@ Prisma models users, secure refresh tokens, farms, plots, crops, diagnoses, mult
 
 See [the shared API contract](../API_CONTRACT.md) for the frontend integration contract.
 
+## Render
+
+The repository root includes `render.yaml`. Create a new **Blueprint** in Render from this GitHub repository and select the `Backend` branch. In Render, enter `DATABASE_URL` with the Supabase connection string, plus `FRONTEND_ORIGIN` and `PUBLIC_API_URL`; optional providers can remain empty. Render runs Prisma migrations before each deploy and exposes the health check at `/api/v1/health`.
+
 ## Database integration tests
 
 Start the isolated test database with `docker compose up -d postgres-test`, copy `TEST_DATABASE_URL` from `env.example` to `.env`, and apply migrations with `DATABASE_URL=$TEST_DATABASE_URL npm run db:deploy` (or set that variable in your shell). `npm test` skips database tests unless `TEST_DATABASE_URL` is set; CI always runs them.
