@@ -31,4 +31,10 @@ describe('HTTP API foundation', () => {
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({ success: false, error: { code: 'UNAUTHORIZED' } });
   });
+
+  it('protects diagnosis uploads before accepting a file', async () => {
+    const response = await request(app).post('/api/v1/crops/1d000000-0000-4000-8000-000000000001/diagnoses');
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({ success: false, error: { code: 'UNAUTHORIZED' } });
+  });
 });

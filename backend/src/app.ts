@@ -13,6 +13,7 @@ import { requestId } from './common/middleware/request-id.js';
 import { ok } from './common/http/response.js';
 import { authRouter } from './modules/auth/auth.routes.js';
 import { cropsRouter, farmsRouter, plotsRouter } from './modules/agriculture/agriculture.routes.js';
+import { diagnosisRouter } from './modules/diagnoses/diagnosis.routes.js';
 
 export function createApp() {
   const app = express();
@@ -31,6 +32,7 @@ export function createApp() {
   app.use('/api/v1/farms', farmsRouter);
   app.use('/api/v1/plots', plotsRouter);
   app.use('/api/v1/crops', cropsRouter);
+  app.use('/api/v1', diagnosisRouter);
   app.use('/api/v1', routeNotFound);
   app.use(errorHandler);
   return app;
