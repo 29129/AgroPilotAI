@@ -1,0 +1,69 @@
+.metricsGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.emptyMessage { margin: 0; color: var(--text-secondary); font-size: .86rem; line-height: 1.5; }
+
+.recommendationList, .evidenceList, .actionList, .forecastList, .alertList, .planTaskList {
+  display: grid; gap: .9rem; margin: 0; padding: 0; list-style: none;
+}
+
+.recommendationItem, .planTask {
+  padding: 1rem; border: 1px solid rgb(255 255 255 / 9%); border-radius: .8rem; background: rgb(255 255 255 / 3%);
+}
+
+.recommendationHeader, .taskHeading, .alertHeading {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: .8rem;
+}
+
+.recommendationHeader h3, .taskHeading h3, .detailBlock h3, .detailBlock h4,
+.recommendationItem p, .planTask p, .alertList p, .planIntro p { margin: 0; }
+.recommendationHeader h3, .taskHeading h3 { font-size: .95rem; line-height: 1.35; }
+
+.overline { margin: 0 0 .3rem; color: #fca5a5; font-size: .67rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.badgeGroup { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: .35rem; }
+.itemSummary { margin-top: .85rem !important; color: var(--text-primary); font-size: .86rem; font-weight: 700; line-height: 1.5; }
+.explanation { margin-top: .48rem !important; color: var(--text-secondary); font-size: .8rem; line-height: 1.55; }
+
+.metadataList, .weatherFacts, .taskMetadata { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; margin: 1rem 0 0; }
+.metadataList div, .weatherFacts div, .taskMetadata div { padding: .65rem; border: 1px solid rgb(255 255 255 / 7%); border-radius: .62rem; background: rgb(17 17 17 / 42%); }
+.metadataList dt, .weatherFacts dt, .taskMetadata dt { color: #9499a1; font-size: .68rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.metadataList dd, .weatherFacts dd, .taskMetadata dd { margin: .25rem 0 0; color: var(--text-primary); font-size: .78rem; line-height: 1.4; overflow-wrap: anywhere; }
+
+.detailBlock { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgb(255 255 255 / 8%); }
+.detailBlock h3, .detailBlock h4 { color: var(--text-primary); font-size: .78rem; letter-spacing: -.01em; }
+.detailBlock h3 { margin-bottom: .75rem; }
+.detailBlock h4 { margin-bottom: .62rem; }
+
+.evidenceList li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .65rem; padding: .78rem; border-radius: .68rem; background: rgb(17 17 17 / 36%); }
+.evidenceType { display: inline-flex; height: fit-content; padding: .24rem .42rem; border: 1px solid rgb(255 255 255 / 12%); border-radius: 999px; color: #d5d8dd; font-size: .63rem; font-weight: 800; line-height: 1; }
+.evidenceList strong, .actionList strong { display: block; font-size: .78rem; line-height: 1.4; }
+.evidenceList p, .actionList p, .alertList p, .planTask > p { margin: .25rem 0 0; color: var(--text-secondary); font-size: .75rem; line-height: 1.5; }
+.evidenceList span:not(.evidenceType), .evidenceList time, .actionList time, .alertList time, .observedAt { display: inline-block; margin-top: .34rem; color: #9499a1; font-size: .68rem; line-height: 1.4; }
+.evidenceList time, .actionList time, .alertList time { margin-left: .55rem; }
+.actionList li, .alertList li { padding: .8rem; border-left: 2px solid var(--border); background: rgb(255 255 255 / 3%); }
+
+.weatherCurrent { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 1rem; align-items: end; }
+.temperature { display: block; margin-top: .32rem; color: var(--text-primary); font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.065em; line-height: 1; }
+.weatherCondition { margin: .52rem 0 0; color: var(--text-secondary); font-size: .84rem; }
+.weatherFacts { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+.forecastList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.forecastList li { display: grid; gap: .42rem; min-width: 0; padding: .82rem; border: 1px solid rgb(255 255 255 / 8%); border-radius: .7rem; background: rgb(255 255 255 / 3%); }
+.forecastList time, .forecastList span { color: #9499a1; font-size: .69rem; line-height: 1.35; overflow-wrap: anywhere; }
+.forecastList strong { font-size: .78rem; line-height: 1.35; }
+
+.planIntro { padding-bottom: 1rem; border-bottom: 1px solid rgb(255 255 255 / 8%); }
+.planIntro > p:first-child { color: var(--text-secondary); font-size: .82rem; line-height: 1.55; }
+.planPeriod { margin-top: .62rem !important; color: #9499a1; font-size: .72rem; font-weight: 700; }
+.planTaskList { margin-top: 1rem; }
+.taskMetadata { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); }
+
+@media (max-width: 760px) {
+  .metricsGrid, .forecastList { grid-template-columns: 1fr; }
+  .weatherCurrent { grid-template-columns: 1fr; align-items: start; }
+}
+
+@media (max-width: 520px) {
+  .recommendationHeader, .taskHeading, .alertHeading { flex-direction: column; }
+  .badgeGroup { justify-content: flex-start; }
+  .metadataList, .weatherFacts, .taskMetadata { grid-template-columns: 1fr; }
+  .evidenceList li { grid-template-columns: 1fr; }
+  .evidenceList time, .actionList time, .alertList time { display: block; margin-left: 0; }
+}

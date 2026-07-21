@@ -1,0 +1,362 @@
+.page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #fca5a5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pageTitle,
+.pageLead {
+  margin: 0;
+}
+
+.pageTitle {
+  margin-top: 0.4rem;
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.pageLead {
+  max-width: 44rem;
+  margin-top: 0.7rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.headerActions,
+.buttonRow,
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.textButton {
+  display: inline-flex;
+  min-height: 2.55rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid transparent;
+  border-radius: 0.65rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.primaryButton {
+  background: var(--accent);
+  color: #fff;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.secondaryButton {
+  border-color: var(--border);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  border-color: #777;
+  background: rgb(255 255 255 / 5%);
+}
+
+.textButton {
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+  color: #fecaca;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.textButton:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.farmCard,
+.plotCard {
+  display: grid;
+  gap: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--background-secondary);
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.farmCard:hover,
+.plotCard:hover {
+  border-color: #747474;
+  transform: translateY(-1px);
+}
+
+.cardTopline,
+.plotHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.farmCard h2,
+.plotCard h3,
+.farmCard p,
+.plotCard p {
+  margin: 0;
+}
+
+.farmCard h2,
+.plotCard h3 {
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.location,
+.muted {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.metaList,
+.detailList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.metaList div,
+.detailList div {
+  min-width: 0;
+}
+
+.metaList dt,
+.detailList dt {
+  color: #9298a2;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.metaList dd,
+.detailList dd {
+  margin: 0.18rem 0 0;
+  color: #e6e8eb;
+  font-size: 0.8rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.breadcrumb {
+  color: #aeb3bc;
+  font-size: 0.76rem;
+}
+
+.breadcrumb a:hover {
+  color: #fff;
+}
+
+.breadcrumb span:last-child {
+  color: #f6f7f8;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(17rem, 1.28fr);
+  gap: 1rem;
+}
+
+.infoPanel {
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: linear-gradient(145deg, rgb(255 255 255 / 4%), transparent),
+    var(--background-secondary);
+}
+
+.infoPanel h2,
+.infoPanel p {
+  margin: 0;
+}
+
+.infoPanel h2 {
+  font-size: 1rem;
+}
+
+.infoPanel > p {
+  margin-top: 0.45rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.infoPanel .detailList {
+  margin-top: 1.15rem;
+}
+
+.sectionStack {
+  display: grid;
+  gap: 1rem;
+}
+
+.plotList {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.plotCard {
+  background: var(--surface);
+}
+
+.cropLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+.cropLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 999px;
+  color: #d8dbe0;
+  font-size: 0.69rem;
+  font-weight: 750;
+}
+
+.cropLink:hover {
+  border-color: rgb(252 165 165 / 45%);
+  color: #fff;
+}
+
+.inlineForm {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 0.75rem;
+  background: rgb(17 17 17 / 30%);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.formField {
+  display: grid;
+  gap: 0.42rem;
+  color: #dfe2e6;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.formField input {
+  width: 100%;
+  min-height: 2.55rem;
+  padding: 0.58rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 0.58rem;
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.formField input[aria-invalid="true"] {
+  border-color: #f87171;
+}
+
+.fieldError,
+.formError,
+.formHint {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.fieldError,
+.formError {
+  color: #fca5a5;
+}
+
+.formError {
+  padding: 0.65rem;
+  border: 1px solid rgb(248 113 113 / 28%);
+  border-radius: 0.58rem;
+  background: rgb(127 29 29 / 18%);
+}
+
+.formHint {
+  color: #aab0b8;
+}
+
+.emptySlot {
+  padding: 1.1rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.72rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 760px) {
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader,
+  .cardTopline,
+  .plotHeading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .headerActions > a,
+  .headerActions > button,
+  .buttonRow > button {
+    width: 100%;
+  }
+}

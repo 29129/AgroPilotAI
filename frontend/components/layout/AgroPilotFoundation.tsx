@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { Brand } from "@/components/ui/Brand";
+
 const modules = [
   {
     label: "Fincas y parcelas",
@@ -24,7 +26,7 @@ const principles = [
     number: "01",
     title: "Evidencia antes que automatización",
     description:
-      "Cada recomendación mostrará su origen, explicación y nivel de confianza.",
+      "Cada recomendación muestra su origen, explicación y nivel de confianza.",
   },
   {
     number: "02",
@@ -36,7 +38,7 @@ const principles = [
     number: "03",
     title: "Una base lista para crecer",
     description:
-      "La interfaz se conecta mediante servicios tipados y puede operar con mocks o API real.",
+      "La interfaz se conecta mediante servicios tipados y puede operar con datos de demostración o API real.",
   },
 ] as const;
 
@@ -45,11 +47,10 @@ export function AgroPilotFoundation() {
     <main className="foundation-page">
       <div className="foundation-frame">
         <header className="foundation-header">
-          <Link className="brand" href="/" aria-label="AgroPilot AI, inicio">
-            <span className="brand-mark" aria-hidden="true" />
-            <span>AgroPilot AI</span>
+          <Brand />
+          <Link className="action-secondary" href="/login">
+            Ingresar
           </Link>
-          <span className="foundation-status">Base de la plataforma lista</span>
         </header>
 
         <section className="foundation-hero" aria-labelledby="foundation-title">
@@ -63,12 +64,12 @@ export function AgroPilotFoundation() {
               ayudar a productores y técnicos a priorizar acciones con contexto.
             </p>
             <div className="foundation-actions">
-              <a className="action-primary" href="#modulos">
-                Explorar módulos
-              </a>
-              <a className="action-secondary" href="#principios">
-                Cómo tomamos decisiones
-              </a>
+              <Link className="action-primary" href="/login">
+                Empezar ahora
+              </Link>
+              <Link className="action-secondary" href="/dashboard">
+                Ver panel de demostración
+              </Link>
             </div>
           </div>
 
@@ -79,10 +80,10 @@ export function AgroPilotFoundation() {
           >
             <div className="panel-heading">
               <div>
-                <p>Arquitectura del producto</p>
-                <h2 id="modules-title">Módulos en preparación</h2>
+                <p>Una operación conectada</p>
+                <h2 id="modules-title">Información que se convierte en acción</h2>
               </div>
-              <span className="panel-tag">Frontend</span>
+              <span className="panel-tag">Demo lista</span>
             </div>
             <ul className="module-list">
               {modules.map((module, index) => (
@@ -92,7 +93,7 @@ export function AgroPilotFoundation() {
                     <h3>{module.label}</h3>
                     <p>{module.description}</p>
                   </div>
-                  <span className="module-state">Base creada</span>
+                  <span className="module-state">Disponible</span>
                 </li>
               ))}
             </ul>
