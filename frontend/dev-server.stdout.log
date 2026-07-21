@@ -1,7 +1,14 @@
 
-> site-creator-vinext-starter@0.1.0 dev
+> agropilot-ai-frontend@0.1.0 dev
 > vinext dev
 
 
   vinext dev  (Vite 8.0.13)
 
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3000[22m/[39m
+  [32m➜[39m  [1mDebug[22m:   [2m[33mhttp://localhost:[1m3000[22m[2m/__debug[39m[22m
+ GET /dashboard 200 in 1.7s (compile: 1784661937.3s, render: 1.7s)
+ GET /crops/crop-cacao-norte/recommendations?_rsc=K1IHsAgpNOfkN_0J 200 in 73ms (compile: 1784661937.3s, render: 0ms)
+ GET /crops?_rsc=JnCnXMqCGWyOuFAK 200 in 21ms (compile: 1784661937.3s, render: 0ms)
+ GET /farms?_rsc=KfGU8eNFz5sBsVjU 200 in 50ms (compile: 1784661937.3s, render: 0ms)
+ GET /assistant?_rsc=dW1xbDuHcmPIVqqi 200 in 24ms (compile: 1784661937.3s, render: 0ms)
