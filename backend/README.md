@@ -37,3 +37,7 @@ La API quedará disponible en `http://localhost:4000/api/v1` y la documentación
 Prisma models users, secure refresh tokens, farms, plots, crops, diagnoses, multi-agent analyses, recommendations, weekly plans, conversations and notifications. The initial migration lives in `prisma/migrations` and is never edited after publication.
 
 See [the shared API contract](../API_CONTRACT.md) for the frontend integration contract.
+
+## Database integration tests
+
+Start the isolated test database with `docker compose up -d postgres-test`, copy `TEST_DATABASE_URL` from `env.example` to `.env`, and apply migrations with `DATABASE_URL=$TEST_DATABASE_URL npm run db:deploy` (or set that variable in your shell). `npm test` skips database tests unless `TEST_DATABASE_URL` is set; CI always runs them.
