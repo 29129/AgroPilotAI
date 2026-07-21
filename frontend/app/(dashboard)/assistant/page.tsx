@@ -1,7 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { EmptyState, ErrorState, LoadingState } from "@/components/ui/AsyncState";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -49,25 +49,11 @@ export default function AssistantPage() {
   const [newConversationCropId, setNewConversationCropId] = useState("");
   const [draft, setDraft] = useState("");
 
-  const conversationQuery = useConversation(selectedConversationId);
+  const conversations = conversationsQuery.data ?? [];
+  const activeConversationId = selectedConversationId ?? conversations[0]?.id;
+  const conversationQuery = useConversation(activeConversationId);
   const createConversation = useCreateConversation();
   const sendMessage = useSendConversationMessage();
-
-  useEffect(() => {
-    const conversations = conversationsQuery.data;
-
-    if (!conversations?.length) {
-      return;
-    }
-
-    const selectedConversationExists = conversations.some(
-      (conversation) => conversation.id === selectedConversationId,
-    );
-
-    if (!selectedConversationId || !selectedConversationExists) {
-      setSelectedConversationId(conversations[0].id);
-    }
-  }, [conversationsQuery.data, selectedConversationId]);
 
   function handleCreateConversation() {
     const selectedCrop = cropsQuery.data?.find((crop) => crop.id === newConversationCropId);
@@ -93,13 +79,13 @@ export default function AssistantPage() {
     event.preventDefault();
 
     const content = draft.trim();
-    if (!selectedConversationId || !content) {
+    if (!activeConversationId || !content) {
       return;
     }
 
     sendMessage.mutate(
       {
-        conversationId: selectedConversationId,
+        conversationId: activeConversationId,
         input: { content },
       },
       {
@@ -108,7 +94,6 @@ export default function AssistantPage() {
     );
   }
 
-  const conversations = conversationsQuery.data ?? [];
   const messages = conversationQuery.data?.messages ?? [];
 
   return (
@@ -199,7 +184,7 @@ export default function AssistantPage() {
             {!conversationsQuery.isLoading && !conversationsQuery.isError && conversations.length ? (
               <ul>
                 {conversations.map((conversation) => {
-                  const isSelected = conversation.id === selectedConversationId;
+                  const isSelected = conversation.id === activeConversationId;
 
                   return (
                     <li key={conversation.id}>
@@ -221,16 +206,16 @@ export default function AssistantPage() {
         </aside>
 
         <div className={styles.chatPane}>
-          {!selectedConversationId ? (
+          {!activeConversationId ? (
             <EmptyState
               title="Elige o crea una conversación"
               description="Podrás preguntar por el estado de un cultivo y recibir orientación explicable."
             />
           ) : null}
-          {selectedConversationId && conversationQuery.isLoading ? (
+          {activeConversationId && conversationQuery.isLoading ? (
             <LoadingState label="Cargando el contexto de la conversación…" />
           ) : null}
-          {selectedConversationId && conversationQuery.isError ? (
+          {activeConversationId && conversationQuery.isError ? (
             <ErrorState
               description={errorMessage(
                 conversationQuery.error,
@@ -243,7 +228,7 @@ export default function AssistantPage() {
               }
             />
           ) : null}
-          {selectedConversationId && !conversationQuery.isLoading && !conversationQuery.isError ? (
+          {activeConversationId && !conversationQuery.isLoading && !conversationQuery.isError ? (
             <>
               <header className={styles.chatHeader}>
                 <div>

@@ -31,10 +31,10 @@ export default function DashboardPage() {
   const user = useCurrentUser();
   const farms = useFarms();
   const crops = useCrops({ status: "ACTIVE" });
-  const primaryCrop = crops.data?.[0];
-  const recommendations = useCropRecommendations(primaryCrop?.id);
-  const weather = useCropWeather(primaryCrop?.id);
-  const weeklyPlan = useCurrentWeeklyPlan(primaryCrop?.id);
+  const primaryCropId = crops.data?.[0]?.id;
+  const recommendations = useCropRecommendations(primaryCropId);
+  const weather = useCropWeather(primaryCropId);
+  const weeklyPlan = useCurrentWeeklyPlan(primaryCropId);
 
   const hasCoreError = farms.isError || crops.isError;
   const isCoreLoading = farms.isLoading || crops.isLoading;
@@ -87,6 +87,7 @@ export default function DashboardPage() {
     );
   }
 
+  const primaryCrop = activeCrops[0]!;
   const cropName = [primaryCrop.cropType, primaryCrop.variety]
     .filter(Boolean)
     .join(" · ");

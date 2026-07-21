@@ -1,0 +1,583 @@
+.page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #fca5a5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pageTitle,
+.pageLead {
+  margin: 0;
+}
+
+.pageTitle {
+  margin-top: 0.4rem;
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.pageLead {
+  max-width: 46rem;
+  margin-top: 0.7rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.58;
+}
+
+.breadcrumb,
+.headerActions,
+.buttonRow,
+.badgeRow,
+.dialogActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.breadcrumb {
+  color: #aeb3bc;
+  font-size: 0.76rem;
+}
+
+.breadcrumb a:hover {
+  color: #fff;
+}
+
+.breadcrumb span:last-child {
+  color: #f6f7f8;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton,
+.quietButton {
+  display: inline-flex;
+  min-height: 2.55rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid transparent;
+  border-radius: 0.65rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.primaryButton {
+  background: var(--accent);
+  color: #fff;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.secondaryButton {
+  border-color: var(--border);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.secondaryButton:hover:not(:disabled),
+.quietButton:hover:not(:disabled) {
+  border-color: #777;
+  background: rgb(255 255 255 / 5%);
+}
+
+.dangerButton {
+  border-color: rgb(248 113 113 / 42%);
+  background: rgb(127 29 29 / 34%);
+  color: #fecaca;
+}
+
+.dangerButton:hover:not(:disabled) {
+  border-color: #f87171;
+  background: rgb(153 27 27 / 52%);
+}
+
+.quietButton {
+  border-color: rgb(255 255 255 / 10%);
+  background: rgb(255 255 255 / 4%);
+  color: #d8dbe0;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.dangerButton:disabled,
+.quietButton:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.cropGrid,
+.actionGrid,
+.overviewGrid,
+.diagnosisList,
+.recommendationList {
+  display: grid;
+  gap: 1rem;
+}
+
+.cropGrid {
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+.cropCard,
+.actionCard,
+.detailCard,
+.diagnosisCard,
+.recommendationCard {
+  display: grid;
+  gap: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--background-secondary);
+}
+
+.cropCard {
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.cropCard:hover {
+  border-color: #747474;
+  transform: translateY(-1px);
+}
+
+.cardHeading,
+.recommendationHeading,
+.diagnosisHeading,
+.actionHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.cropCard h2,
+.actionCard h2,
+.detailCard h2,
+.diagnosisCard h2,
+.recommendationCard h2,
+.recommendationCard h3,
+.diagnosisCard h3,
+.actionCard h3,
+.cropCard p,
+.actionCard p,
+.detailCard p,
+.diagnosisCard p,
+.recommendationCard p {
+  margin: 0;
+}
+
+.cropCard h2,
+.actionCard h2,
+.detailCard h2,
+.recommendationCard h3,
+.diagnosisCard h3 {
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.cardSubtitle,
+.muted,
+.helperText {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.48;
+}
+
+.detailList,
+.factList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.detailList div,
+.factList div {
+  min-width: 0;
+}
+
+.detailList dt,
+.factList dt {
+  color: #9298a2;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.detailList dd,
+.factList dd {
+  margin: 0.18rem 0 0;
+  color: #e6e8eb;
+  font-size: 0.8rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.actionGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.actionCard {
+  min-height: 12.5rem;
+  background: linear-gradient(145deg, rgb(255 255 255 / 4%), transparent), var(--background-secondary);
+}
+
+.actionCard h2 {
+  margin-top: 0.18rem;
+}
+
+.actionCard p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.actionLink {
+  margin-top: auto;
+  color: #fecaca;
+  font-size: 0.79rem;
+  font-weight: 800;
+}
+
+.actionLink:hover {
+  color: #fff;
+}
+
+.overviewGrid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.95fr);
+}
+
+.detailStack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detailStack > * {
+  min-width: 0;
+}
+
+.compactList,
+.evidenceList,
+.findingList,
+.proposalList {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compactList li,
+.evidenceList li,
+.findingList li,
+.proposalList li {
+  padding: 0.78rem;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.65rem;
+  background: rgb(17 17 17 / 24%);
+}
+
+.compactList a {
+  display: block;
+}
+
+.compactList strong,
+.evidenceList strong,
+.findingList strong,
+.proposalList strong {
+  display: block;
+  font-size: 0.8rem;
+}
+
+.compactList span,
+.evidenceList span,
+.findingList p,
+.proposalList p {
+  display: block;
+  margin-top: 0.23rem;
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.formPanel {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 0.75rem;
+  background: rgb(17 17 17 / 28%);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.formField {
+  display: grid;
+  gap: 0.42rem;
+  color: #dfe2e6;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.formFieldWide {
+  grid-column: 1 / -1;
+}
+
+.formField input,
+.formField textarea {
+  width: 100%;
+  min-height: 2.55rem;
+  padding: 0.58rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 0.58rem;
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.formField textarea {
+  min-height: 6.2rem;
+  resize: vertical;
+}
+
+.formField input[aria-invalid="true"],
+.formField textarea[aria-invalid="true"] {
+  border-color: #f87171;
+}
+
+.fieldError,
+.formError,
+.feedback,
+.formHint {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.fieldError,
+.formError {
+  color: #fca5a5;
+}
+
+.formError {
+  padding: 0.65rem;
+  border: 1px solid rgb(248 113 113 / 28%);
+  border-radius: 0.58rem;
+  background: rgb(127 29 29 / 18%);
+}
+
+.feedback {
+  padding: 0.68rem;
+  border: 1px solid rgb(134 239 172 / 22%);
+  border-radius: 0.58rem;
+  background: rgb(22 101 52 / 17%);
+  color: #bbf7d0;
+}
+
+.formHint {
+  color: #aab0b8;
+}
+
+.diagnosisCard {
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.72fr);
+  align-items: start;
+}
+
+.diagnosisBody {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.diagnosisImage,
+.diagnosisImagePlaceholder {
+  width: 100%;
+  min-height: 10rem;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 0.72rem;
+  background: linear-gradient(135deg, rgb(220 38 38 / 16%), rgb(255 255 255 / 3%));
+}
+
+.diagnosisImage {
+  display: block;
+  object-fit: cover;
+}
+
+.diagnosisImagePlaceholder {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: #c7ccd2;
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.findingList li {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.findingTopline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.recommendationList {
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+}
+
+.recommendationCard {
+  align-content: start;
+  background: linear-gradient(145deg, rgb(255 255 255 / 4%), transparent), var(--background-secondary);
+}
+
+.recommendationSummary,
+.recommendationExplanation {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.recommendationExplanation {
+  padding-top: 0.8rem;
+  border-top: 1px solid rgb(255 255 255 / 8%);
+}
+
+.sectionLabel {
+  margin: 0;
+  color: #c7ccd2;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.approvalNotice {
+  padding: 0.72rem;
+  border-left: 2px solid var(--warning);
+  background: rgb(217 119 6 / 9%);
+  color: #fde68a;
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.dialogBackdrop {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 72%);
+}
+
+.dialog {
+  width: min(100%, 32rem);
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #5d5d5d;
+  border-radius: 0.9rem;
+  background: #202020;
+  box-shadow: 0 1.25rem 4rem rgb(0 0 0 / 45%);
+}
+
+.dialog h2,
+.dialog p {
+  margin: 0;
+}
+
+.dialog h2 {
+  font-size: 1.1rem;
+}
+
+.dialog > p {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.checkboxField {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: #e3e5e8;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.checkboxField input {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.08rem;
+  accent-color: var(--accent);
+}
+
+@media (max-width: 880px) {
+  .actionGrid,
+  .overviewGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .diagnosisCard {
+    grid-template-columns: 1fr;
+  }
+
+  .diagnosisImage,
+  .diagnosisImagePlaceholder {
+    min-height: 12rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader,
+  .cardHeading,
+  .recommendationHeading,
+  .diagnosisHeading,
+  .actionHeading,
+  .dialogActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .headerActions > a,
+  .headerActions > button,
+  .buttonRow > button,
+  .buttonRow > a,
+  .dialogActions > button {
+    width: 100%;
+  }
+}

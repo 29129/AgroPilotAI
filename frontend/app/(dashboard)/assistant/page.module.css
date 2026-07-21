@@ -193,7 +193,7 @@
   grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
-.chatPane > .async-state {
+.chatPane > :global(.async-state) {
   align-self: center;
   margin: 1.25rem;
 }

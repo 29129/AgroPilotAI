@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import { EmptyState, ErrorState, LoadingState } from "@/components/ui/AsyncState";
@@ -70,13 +70,8 @@ function formatDate(value: string) {
 
 export default function NotificationsPage() {
   const cropsQuery = useCrops();
-  const [activeCropId, setActiveCropId] = useState("");
-
-  useEffect(() => {
-    if (!activeCropId && cropsQuery.data?.[0]) {
-      setActiveCropId(cropsQuery.data[0].id);
-    }
-  }, [activeCropId, cropsQuery.data]);
+  const [requestedCropId, setRequestedCropId] = useState("");
+  const activeCropId = requestedCropId || cropsQuery.data?.[0]?.id || "";
 
   const weatherQuery = useCropWeather(activeCropId || undefined);
   const recommendationsQuery = useCropRecommendations(activeCropId || undefined);
@@ -158,7 +153,7 @@ export default function NotificationsPage() {
           <span>Cultivo</span>
           <select
             value={activeCropId}
-            onChange={(event) => setActiveCropId(event.target.value)}
+            onChange={(event) => setRequestedCropId(event.target.value)}
             disabled={cropsQuery.isLoading || !cropsQuery.data?.length}
           >
             <option value="">Selecciona un cultivo</option>
