@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: agropilot
+      POSTGRES_PASSWORD: agropilot
+      POSTGRES_DB: agropilot
+    ports:
+      - "5432:5432"
+    volumes:
+      - agropilot_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agropilot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  agropilot_postgres:
