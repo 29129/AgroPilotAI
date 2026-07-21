@@ -1,0 +1,4 @@
+import { createHash } from 'node:crypto';
+export type MarketRow = { product: string; province?: string; unit: string; price: number; observedAt: string };
+export function parseMarketCsv(csv: string): MarketRow[] { const [header, ...rows] = csv.trim().split(/\r?\n/); if (!header) throw new Error('El archivo CSV no contiene encabezado.'); const keys = header.split(',').map((v) => v.trim()); return rows.map((line) => Object.fromEntries(line.split(',').map((value, i) => [keys[i], value.trim()]))) .map((row) => ({ product: String(row.product), province: row.province ? String(row.province) : undefined, unit: String(row.unit), price: Number(row.price), observedAt: new Date(String(row.observedAt)).toISOString() })); }
+export const checksum = (content: string) => createHash('sha256').update(content).digest('hex');

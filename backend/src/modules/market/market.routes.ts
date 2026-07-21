@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { z } from 'zod';
+import { authenticate, authorize } from '../../common/middleware/auth.js';
+import { asyncHandler } from '../../common/utils/async-handler.js';
+import { ok } from '../../common/http/response.js';
+import { importOfficialCsv } from './market.service.js';
+import { prisma } from '../../database/prisma.js';
+export const marketRouter = Router();
+marketRouter.post('/imports', authenticate, authorize('ADMIN'), asyncHandler(async (req, res) => { const input = z.object({ source: z.enum(['MAG_SIPA', 'INEC']), sourceUrl: z.string().url(), csv: z.string().min(1) }).parse(req.body); return ok(res, await importOfficialCsv(input.source, input.sourceUrl, input.csv), 201); }));
+marketRouter.get('/prices', authenticate, asyncHandler(async (req, res) => { const input = z.object({ product: z.string(), province: z.string().optional() }).parse(req.query); const data = await prisma.marketPrice.findFirst({ where: { product: { equals: input.product, mode: 'insensitive' }, ...(input.province ? { province: { equals: input.province, mode: 'insensitive' } } : {}) }, orderBy: { observedAt: 'desc' }, include: { import: true } }); return ok(res, data); }));
