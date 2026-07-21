@@ -1,0 +1,24 @@
+import { Router } from 'express';
+import { authenticate } from '../../common/middleware/auth.js';
+import { validate } from '../../common/middleware/validate.js';
+import { asyncHandler } from '../../common/utils/async-handler.js';
+import { ok } from '../../common/http/response.js';
+import { agricultureService as service } from './agriculture.service.js';
+import * as s from './agriculture.schemas.js';
+
+export const farmsRouter = Router(); export const cropsRouter = Router(); export const plotsRouter = Router();
+farmsRouter.use(authenticate); cropsRouter.use(authenticate); plotsRouter.use(authenticate);
+farmsRouter.get('/', validate(s.listSchema), asyncHandler(async (req, res) => { const { data, total } = await service.listFarms(req.user!.id, req.user!.role, req.query as any); return ok(res, data, 200, { ...req.query, total }); }));
+farmsRouter.post('/', validate(s.farmCreateSchema), asyncHandler(async (req, res) => ok(res, await service.createFarm(req.user!.id, req.body), 201)));
+farmsRouter.get('/:farmId', validate(s.farmIdSchema), asyncHandler(async (req, res) => ok(res, await service.getFarm(String(req.params.farmId), req.user!.id, req.user!.role))));
+farmsRouter.patch('/:farmId', validate(s.farmUpdateSchema), asyncHandler(async (req, res) => ok(res, await service.updateFarm(String(req.params.farmId), req.user!.id, req.user!.role, req.body))));
+farmsRouter.delete('/:farmId', validate(s.farmIdSchema), asyncHandler(async (req, res) => { await service.deleteFarm(String(req.params.farmId), req.user!.id, req.user!.role); return res.status(204).send(); }));
+farmsRouter.get('/:farmId/plots', validate(s.farmIdSchema), asyncHandler(async (req, res) => ok(res, await service.listPlots(String(req.params.farmId), req.user!.id, req.user!.role))));
+farmsRouter.post('/:farmId/plots', validate(s.plotCreateSchema), asyncHandler(async (req, res) => ok(res, await service.createPlot(String(req.params.farmId), req.user!.id, req.user!.role, req.body), 201)));
+plotsRouter.patch('/:plotId', validate(s.plotUpdateSchema), asyncHandler(async (req, res) => ok(res, await service.updatePlot(String(req.params.plotId), req.user!.id, req.user!.role, req.body))));
+plotsRouter.delete('/:plotId', validate(s.plotIdSchema), asyncHandler(async (req, res) => { await service.deletePlot(String(req.params.plotId), req.user!.id, req.user!.role); return res.status(204).send(); }));
+cropsRouter.get('/', validate(s.listSchema), asyncHandler(async (req, res) => { const { data, total } = await service.listCrops(req.user!.id, req.user!.role, req.query as any); return ok(res, data, 200, { ...req.query, total }); }));
+cropsRouter.post('/', validate(s.cropCreateSchema), asyncHandler(async (req, res) => ok(res, await service.createCrop(req.user!.id, req.user!.role, req.body), 201)));
+cropsRouter.get('/:cropId', validate(s.cropIdSchema), asyncHandler(async (req, res) => ok(res, await service.getCrop(String(req.params.cropId), req.user!.id, req.user!.role))));
+cropsRouter.patch('/:cropId', validate(s.cropUpdateSchema), asyncHandler(async (req, res) => ok(res, await service.updateCrop(String(req.params.cropId), req.user!.id, req.user!.role, req.body))));
+cropsRouter.delete('/:cropId', validate(s.cropIdSchema), asyncHandler(async (req, res) => ok(res, await service.deleteCrop(String(req.params.cropId), req.user!.id, req.user!.role))));

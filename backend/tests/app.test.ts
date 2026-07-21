@@ -25,4 +25,10 @@ describe('HTTP API foundation', () => {
     expect(response.body).toMatchObject({ success: false, error: { code: 'ROUTE_NOT_FOUND' } });
     expect(response.body.meta.requestId).toMatch(/^[\da-f-]{36}$/i);
   });
+
+  it('protects agricultural resources before accessing storage', async () => {
+    const response = await request(app).get('/api/v1/farms');
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({ success: false, error: { code: 'UNAUTHORIZED' } });
+  });
 });

@@ -12,6 +12,7 @@ import { routeNotFound } from './common/middleware/not-found.js';
 import { requestId } from './common/middleware/request-id.js';
 import { ok } from './common/http/response.js';
 import { authRouter } from './modules/auth/auth.routes.js';
+import { cropsRouter, farmsRouter, plotsRouter } from './modules/agriculture/agriculture.routes.js';
 
 export function createApp() {
   const app = express();
@@ -27,6 +28,9 @@ export function createApp() {
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
   app.get('/api/v1/health', (_req, res) => ok(res, { status: 'ok' }));
   app.use('/api/v1/auth', authRouter);
+  app.use('/api/v1/farms', farmsRouter);
+  app.use('/api/v1/plots', plotsRouter);
+  app.use('/api/v1/crops', cropsRouter);
   app.use('/api/v1', routeNotFound);
   app.use(errorHandler);
   return app;
