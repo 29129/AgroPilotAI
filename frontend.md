@@ -1,1196 +1,605 @@
-# FORGEAI — CONTEXTO Y PROMPT PARA FRONTEND
+# AgroPilot AI — Guía y prompt de implementación del frontend
 
-## 1. Propósito
+## 1. Objetivo del documento
 
-Este documento es la fuente de verdad para la persona y la sesión de Codex responsables del frontend de ForgeAI.
+Este archivo define el contexto, las responsabilidades, el contrato de integración y el orden de trabajo para la persona encargada del frontend de **AgroPilot AI**.
 
-El frontend será desarrollado en paralelo con el backend.
+El frontend y el backend deben poder desarrollarse en paralelo. Para lograrlo, el frontend consumirá únicamente el contrato de API acordado y utilizará datos mock mientras los endpoints reales no estén disponibles.
 
-Debe avanzar usando contratos compartidos y mocks tipados, sin esperar a que todos los endpoints estén terminados.
+La regla principal es:
+
+> El frontend no debe depender de la estructura interna del backend. Toda comunicación debe pasar por una capa de servicios tipada y centralizada.
+
+---
+
+## 2. Contexto del proyecto
+
+**AgroPilot AI** es una plataforma agrícola inteligente para pequeños y medianos productores.
+
+Permite:
+
+- Registrar fincas, parcelas y cultivos.
+- Consultar el estado general de la producción.
+- Cargar fotografías de hojas o frutos.
+- Revisar alertas climáticas.
+- Obtener recomendaciones de riego y fertilización.
+- Consultar información de mercado.
+- Generar planes semanales.
+- Conversar con un asistente agrícola.
+- Revisar la evidencia y explicación de cada recomendación.
+- Aprobar, rechazar o completar acciones.
+
+La interfaz debe transmitir que el sistema apoya decisiones y no sustituye automáticamente al productor o técnico.
+
+---
+
+## 3. Alcance del frontend
 
 El frontend será responsable de:
 
-- Landing.
-- Dashboard.
-- Conectar repositorios.
-- Centro de operaciones.
-- Health Score.
-- Riesgos.
-- Evidencias.
-- Sprint Planner.
-- Workspace del agente.
-- Streaming SSE.
-- Confirmación de acciones.
-- Responsive.
-- Accesibilidad.
-- Pruebas frontend.
+1. Interfaz de autenticación.
+2. Panel general.
+3. Gestión visual de fincas, parcelas y cultivos.
+4. Carga y previsualización de imágenes.
+5. Visualización de diagnósticos.
+6. Visualización de clima y mercado.
+7. Presentación de recomendaciones y evidencias.
+8. Aprobación o rechazo de acciones.
+9. Presentación de planes semanales.
+10. Chat con el agente orquestador.
+11. Estados de carga, error, vacío y éxito.
+12. Diseño responsive y accesible.
+13. Consumo centralizado y tipado de la API.
 
-No debe implementar lógica de negocio del backend.
-
----
-
-# 2. Producto
-
-ForgeAI es un Engineering Operations Agent.
-
-La interfaz debe permitir comprender rápidamente:
-
-1. Cómo está el repositorio.
-2. Qué riesgo necesita atención.
-3. Qué tarea debe ejecutarse primero.
-4. Qué herramientas está usando el agente.
-5. Qué acción necesita confirmación.
-
-La interfaz no debe sentirse como ChatGPT.
-
-Debe sentirse como un centro de operaciones técnico.
+El frontend no debe contener reglas críticas de negocio que pertenezcan al backend.
 
 ---
 
-# 3. Flujo de usuario
+## 4. Stack recomendado
 
-```text
-Landing
-   ↓
-Conectar repositorio
-   ↓
-Sincronización
-   ↓
-Centro de operaciones
-   ↓
-Health Score y riesgos
-   ↓
-Pregunta al agente
-   ↓
-Actividad de tools
-   ↓
-Recomendación
-   ↓
-Sprint
-   ↓
-Acción pendiente
-   ↓
-Confirmación
-```
-
-La demo debe poder completarse en menos de tres minutos.
-
----
-
-# 4. Arquitectura
-
-```text
-app/
-├── (web)/                      # Frontend
-│   ├── page.tsx
-│   ├── dashboard/
-│   ├── projects/
-│   └── settings/
-└── api/                        # Backend: no modificar
-
-components/
-├── ui/
-├── layout/
-├── projects/
-├── dashboard/
-├── risks/
-├── sprint/
-├── agent/
-└── feedback/
-
-client/
-├── api/
-│   ├── forgeai-client.ts
-│   └── sse-client.ts
-├── hooks/
-└── mocks/
-    ├── fixtures.ts
-    └── handlers.ts
-
-server/                         # Backend: no modificar
-
-shared/
-└── contracts/                  # Backend: solo importar
-
-db/                             # Backend: no modificar
-
-tests/
-└── frontend/
-```
-
----
-
-# 5. Stack
-
-Respetar primero el stack instalado.
-
-Para proyecto nuevo:
-
-- Next.js 16.
+- Next.js 16 con App Router.
 - React 19.
 - TypeScript estricto.
-- App Router.
-- CSS existente o Tailwind si está configurado.
-- Lucide Icons.
-- Recharts solo cuando sea necesario.
-- Zod.
-- Testing Library.
-- Vitest o herramienta existente.
-
-No instalar una librería por cada componente.
-
----
-
-# 6. Organización Git
-
-La rama debe crearse después de que los contratos v1 estén integrados en `main`.
-
-```bash
-git checkout main
-git pull origin main
-git checkout -b feat/frontend-forgeai-mvp
-```
-
-Commits sugeridos:
-
-```text
-feat(ui): add application shell
-feat(projects): add repository connection flow
-feat(dashboard): add project health overview
-feat(agent): consume SSE activity events
-feat(actions): add issue confirmation flow
-test(agent): validate streaming state reducer
-```
+- CSS Modules, Tailwind CSS o sistema de estilos acordado.
+- TanStack Query para estado de servidor.
+- Zustand o Context solo para estado global necesario.
+- React Hook Form.
+- Zod para validación del lado cliente.
+- Recharts para gráficas.
+- Vitest y React Testing Library.
+- Playwright para pruebas end-to-end opcionales.
 
 ---
 
-# 7. Propiedad de archivos
+## 5. Diseño visual
 
-## Frontend puede modificar
+Usar una distribución aproximada:
 
-```text
-app/(web)/**
-components/**
-client/**
-styles/**
-public/**
-tests/frontend/**
-```
+- 60 % gris oscuro.
+- 30 % negro.
+- 10 % rojo como color de acción y alerta.
 
-## Frontend no puede modificar
-
-```text
-app/api/**
-server/**
-db/**
-shared/contracts/**
-tests/backend/**
-```
-
-## Archivos de alto riesgo
-
-```text
-package.json
-lockfiles
-tsconfig.json
-next.config.*
-middleware.ts
-proxy.ts
-app/layout.tsx
-app/globals.css
-```
-
-Para cambiar uno:
-
-1. Crear propuesta.
-2. Hacer commit aislado.
-3. Coordinar integración en `main`.
-4. Actualizar ambas ramas.
-5. Continuar.
-
----
-
-# 8. Contratos compartidos
-
-Todos los tipos se importan desde:
-
-```ts
-import type {
-  ApiResponse,
-  ProjectSummary,
-  ProjectOverview,
-  ProjectRisk,
-  Recommendation,
-  SprintPlan,
-  AgentStreamEvent,
-  PendingAction,
-  ExecutedAction,
-} from "@/shared/contracts";
-```
-
-Reglas:
-
-- No duplicar interfaces.
-- No inventar campos.
-- No cambiar contratos.
-- No volver opcional un campo solo para evitar un error.
-- No calcular métricas del backend.
-- No calcular Health Score.
-- No ordenar prioridades mediante lógica local.
-- No determinar severidad.
-- No marcar una acción completada sin respuesta del backend.
-
----
-
-# 9. Endpoints esperados
-
-```text
-POST   /api/projects
-GET    /api/projects
-GET    /api/projects/[projectId]
-DELETE /api/projects/[projectId]
-
-POST /api/projects/[projectId]/sync
-GET  /api/projects/[projectId]/overview
-GET  /api/projects/[projectId]/risks
-POST /api/projects/[projectId]/sprint
-
-POST /api/projects/[projectId]/agent
-
-POST /api/projects/[projectId]/actions/[actionId]/confirm
-POST /api/projects/[projectId]/actions/[actionId]/cancel
-```
-
----
-
-# 10. Cliente API único
-
-Todo acceso HTTP debe pasar por:
-
-```text
-client/api/forgeai-client.ts
-```
-
-Funciones:
-
-```ts
-listProjects()
-createProject(input)
-getProject(projectId)
-deleteProject(projectId)
-syncProject(projectId)
-getProjectOverview(projectId)
-getProjectRisks(projectId)
-generateSprint(projectId, input)
-confirmAction(projectId, actionId)
-cancelAction(projectId, actionId)
-```
-
-Responsabilidades:
-
-- Construir rutas.
-- Enviar headers.
-- Parsear `ApiResponse`.
-- Convertir errores.
-- Aceptar AbortSignal.
-- Validar respuestas.
-- No mostrar toasts.
-- No contener componentes.
-- No contener mocks.
-
-No hacer `fetch` directamente dentro de componentes.
-
----
-
-# 11. Cliente SSE
-
-Archivo:
-
-```text
-client/api/sse-client.ts
-```
-
-Interfaz sugerida:
-
-```ts
-streamAgentResponse({
-  projectId,
-  message,
-  sessionId,
-  signal,
-  onEvent,
-}): Promise<void>
-```
-
-Debe:
-
-- Consumir `text/event-stream`.
-- Validar `AgentStreamEvent`.
-- Acumular `message.delta`.
-- Procesar tools.
-- Evitar eventos duplicados.
-- Permitir cancelación.
-- Cerrar con `session.completed`.
-- Manejar `session.error`.
-- Manejar desconexión.
-- No reconstruir razonamiento interno.
-
----
-
-# 12. Mocks tipados
-
-Variable:
-
-```env
-NEXT_PUBLIC_USE_MOCK_API=true
-```
-
-Cuando esté activa:
-
-- Usar fixtures.
-- Mantener las mismas rutas.
-- Mantener los mismos payloads.
-- Emitir los mismos eventos SSE.
-- Importar contratos compartidos.
-- No mezclar datos mock con reales.
-
-Fixtures mínimos:
-
-```text
-project-healthy
-project-at-risk
-project-syncing
-project-failed
-overview-default
-risks-default
-sprint-four-hours
-agent-stream-priority
-pending-create-issue
-executed-create-issue
-```
-
-Secuencia mock:
-
-```text
-session.started
-tool.started
-tool.completed
-tool.started
-tool.completed
-message.delta
-message.delta
-recommendation
-pending_action
-session.completed
-```
-
-Centralizar los tiempos simulados. No colocar `setTimeout` por toda la UI.
-
----
-
-# 13. Diseño
-
-ForgeAI debe transmitir:
-
-- Precisión.
-- Control.
-- Confianza.
-- Claridad.
-- Inteligencia técnica.
-
-Paleta:
+Paleta sugerida:
 
 ```css
 :root {
-  --background: #f3f4f6;
-  --surface: #ffffff;
-  --surface-secondary: #e5e7eb;
-  --text-primary: #2f2f2f;
-  --text-secondary: #4b5563;
-  --border: #d1d5db;
+  --background-primary: #111111;
+  --background-secondary: #1f1f1f;
+  --surface: #2f2f2f;
+  --surface-soft: #3b3b3b;
+  --text-primary: #f3f4f6;
+  --text-secondary: #b8bcc4;
+  --border: #444444;
   --accent: #dc2626;
   --accent-hover: #b91c1c;
-  --critical: #991b1b;
-  --success: #166534;
-  --warning: #b45309;
-}
-
-[data-theme="dark"] {
-  --background: #0b0d10;
-  --surface: #14171c;
-  --surface-secondary: #1d2128;
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --border: #2f3540;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
 }
 ```
 
-Composición:
+El rojo no debe ocupar grandes superficies. Debe reservarse para:
 
-- 60 % gris.
-- 30 % negro.
-- 10 % rojo.
-
-El rojo se reserva para CTA, riesgos y estado activo.
-
-Evitar:
-
-- Gradientes excesivos.
-- Glassmorphism exagerado.
-- Neón.
-- Animaciones decorativas.
-- Pantallas saturadas.
+- Botones principales.
+- Alertas críticas.
+- Estados activos.
+- Indicadores de prioridad alta.
+- Acciones destructivas.
 
 ---
 
-# 14. Rutas
+## 6. Arquitectura sugerida
 
 ```text
-/
-  Landing
+src/
+├── app/
+│   ├── (auth)/
+│   ├── (dashboard)/
+│   ├── api/
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/
+│   ├── layout/
+│   ├── forms/
+│   ├── charts/
+│   ├── recommendations/
+│   ├── crops/
+│   └── agents/
+├── features/
+│   ├── auth/
+│   ├── farms/
+│   ├── plots/
+│   ├── crops/
+│   ├── diagnoses/
+│   ├── recommendations/
+│   ├── plans/
+│   └── conversations/
+├── services/
+│   ├── api-client.ts
+│   ├── auth.service.ts
+│   ├── farms.service.ts
+│   ├── crops.service.ts
+│   ├── recommendations.service.ts
+│   └── conversations.service.ts
+├── hooks/
+├── lib/
+├── mocks/
+├── schemas/
+├── types/
+└── styles/
+```
 
+Cada funcionalidad debe tener sus propios componentes, hooks, tipos y pruebas cuando sea necesario.
+
+---
+
+## 7. Rutas principales
+
+```text
+/login
+/register
 /dashboard
-  Proyectos
-
-/projects/new
-  Conectar repositorio
-
-/projects/[projectId]
-  Centro de operaciones
-
-/projects/[projectId]/agent
-  Workspace del agente
-
-/settings
-  Preferencias
-```
-
-El centro de operaciones puede usar pestañas:
-
-```text
-Overview
-Risks
-Sprint
-Activity
-Agent
+/farms
+/farms/new
+/farms/[farmId]
+/farms/[farmId]/plots/[plotId]
+/crops
+/crops/[cropId]
+/crops/[cropId]/diagnosis
+/crops/[cropId]/recommendations
+/crops/[cropId]/weekly-plan
+/assistant
+/notifications
+/profile
 ```
 
 ---
 
-# 15. Landing
+## 8. Pantallas mínimas
 
-Título:
+### Inicio de sesión
 
-```text
-Tu proyecto tiene datos. ForgeAI los convierte en decisiones.
-```
+- Correo.
+- Contraseña.
+- Recuperación de contraseña opcional.
+- Mensajes de error claros.
 
-Subtítulo:
-
-```text
-Un agente de operaciones de ingeniería que analiza Issues, Pull Requests, commits y CI para detectar riesgos y priorizar el trabajo.
-```
-
-CTA principal:
-
-```text
-Analizar repositorio
-```
-
-CTA secundario:
-
-```text
-Ver demostración
-```
-
-No dedicar demasiado tiempo a la landing.
-
----
-
-# 16. Dashboard
+### Dashboard
 
 Debe mostrar:
 
-- Repositorios conectados.
-- Health Score.
-- Riesgos críticos.
-- Issues abiertas.
-- PR abiertas.
-- Estado de sincronización.
-- Última sincronización.
+- Cantidad de cultivos activos.
+- Alertas críticas.
+- Recomendaciones pendientes.
+- Próximas tareas.
+- Resumen del clima.
+- Últimos análisis.
 
-Componentes:
+### Gestión de fincas
 
-```text
-ProjectGrid
-ProjectCard
-ProjectCardMenu
-HealthBadge
-SyncStatus
-EmptyProjects
-```
+- Lista de fincas.
+- Creación y edición.
+- Vista de parcelas.
+- Estado vacío cuando no existan registros.
 
-Estados:
+### Detalle del cultivo
 
-```text
-loading
-empty
-syncing
-ready
-partial
-failed
-rate-limited
-unauthorized
-```
+- Información general.
+- Etapa de crecimiento.
+- Clima.
+- Estado sanitario.
+- Recomendaciones.
+- Plan semanal.
+- Historial de diagnósticos.
 
----
+### Diagnóstico por imagen
 
-# 17. Conectar repositorio
+- Zona de carga o captura.
+- Previsualización.
+- Campo para describir síntomas.
+- Progreso de análisis.
+- Resultado con nivel de confianza.
+- Advertencia cuando el resultado requiera revisión técnica.
 
-Componente:
+### Recomendaciones
 
-```text
-ConnectRepositoryForm
-```
+Cada tarjeta debe mostrar:
 
-Campo:
-
-```text
-https://github.com/owner/repository
-```
-
-Flujo:
-
-1. Validación local básica.
-2. Envío al backend.
-3. Validación real.
-4. Previsualización.
-5. Confirmación.
-6. Creación.
-7. Sincronización.
-8. Navegación.
-
-No afirmar que el repositorio existe antes de recibir respuesta.
-
----
-
-# 18. Centro de operaciones
-
-## Header
-
-- Repositorio.
-- Owner.
-- Rama principal.
-- Última sincronización.
-- Estado.
-- Botón sincronizar.
-- Botón preguntar.
-
-## Métricas
-
-- Health Score.
-- Riesgos críticos.
-- PR abiertas.
-- Issues abiertas.
-- CI.
-
-## Prioridad
-
-Mostrar:
-
-- Título.
-- Razón.
-- Tiempo estimado.
-- Evidencia.
-- Acción sugerida.
-
-## Riesgos
-
-Mostrar de tres a cinco riesgos.
-
-## Actividad
-
-Mostrar commits, PR, Issues, workflows y releases.
-
----
-
-# 19. Health Score
-
-Componente:
-
-```text
-ProjectHealthScore
-```
-
-Mostrar:
-
-- Puntuación.
-- Nivel.
-- Tendencia.
-- Factores.
-- Fecha.
-
-No llamarlo progreso.
-
-Ejemplo:
-
-```text
--15 por CI fallido
--10 por riesgo crítico
--5 por PR antigua
-+8 por actividad reciente
-```
-
-Frontend no calcula estos valores.
-
----
-
-# 20. Riesgos
-
-Componentes:
-
-```text
-RiskList
-RiskCard
-RiskSeverityBadge
-RiskDetailDrawer
-EvidenceList
-RiskFilters
-```
-
-Mostrar:
-
-- Severidad.
 - Categoría.
 - Título.
-- Descripción.
-- Evidencia.
-- Recomendación.
+- Resumen.
+- Prioridad.
 - Confianza.
-- Fecha.
+- Explicación.
+- Evidencias.
+- Acciones sugeridas.
+- Botones aprobar, rechazar y marcar como completada.
 
-Orden:
+### Plan semanal
 
-```text
-critical
-high
-medium
-low
-```
+- Vista por día.
+- Tareas pendientes y completadas.
+- Prioridad.
+- Motivo de la tarea.
+- Relación con una recomendación.
 
-La evidencia debe enlazar a GitHub cuando tenga URL.
+### Asistente agrícola
 
----
-
-# 21. Workspace del agente
-
-No crear una copia de ChatGPT.
-
-```text
-AgentWorkspace
-├── ProjectContextPanel
-├── AgentConversation
-├── AgentActivity
-├── RecommendationPanel
-└── PendingActionsPanel
-```
-
-Componentes:
-
-```text
-AgentMessage
-AgentComposer
-PromptSuggestion
-ToolExecutionItem
-EvidenceReference
-RecommendationCard
-PendingActionCard
-ConfirmationDialog
-```
-
-Prompts sugeridos:
-
-```text
-¿Cuál es el mayor riesgo?
-¿Qué debería hacer primero el equipo?
-Planifica un sprint de cuatro horas.
-Resume el trabajo de esta semana.
-¿Qué Pull Request debemos revisar primero?
-```
+- Historial de conversación.
+- Entrada de texto.
+- Indicador de procesamiento.
+- Respuestas estructuradas.
+- Acciones sugeridas.
+- Referencias a datos del cultivo cuando correspondan.
 
 ---
 
-# 22. Actividad del agente
+## 9. Contrato de integración
 
-No mostrar chain-of-thought.
+URL base configurable:
 
-Mostrar eventos verificables:
-
-```text
-Consultando 18 Issues
-Revisando 6 Pull Requests
-Comprobando workflows
-Calculando salud
-Analizando riesgos
-Generando recomendación
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1
 ```
 
-Estados:
+Respuesta exitosa esperada:
 
-```text
-pending
-running
-completed
-failed
+```ts
+interface ApiSuccess<T> {
+  success: true;
+  data: T;
+  meta: {
+    requestId: string;
+    page?: number;
+    limit?: number;
+    total?: number;
+  };
+}
 ```
+
+Respuesta de error:
+
+```ts
+interface ApiFailure {
+  success: false;
+  error: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+  meta: {
+    requestId: string;
+  };
+}
+```
+
+El frontend debe centralizar el tratamiento de errores en `api-client.ts`.
+
+---
+
+## 10. Tipos compartidos mínimos
+
+```ts
+export type Priority = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+
+export type RecommendationStatus =
+  | "PENDING"
+  | "APPROVED"
+  | "REJECTED"
+  | "COMPLETED";
+
+export interface Evidence {
+  type: "WEATHER" | "IMAGE" | "SOIL" | "MARKET" | "USER_INPUT";
+  label: string;
+  value: string | number;
+  source?: string;
+  observedAt?: string;
+}
+
+export interface RecommendedAction {
+  id: string;
+  label: string;
+  description?: string;
+  scheduledFor?: string;
+}
+
+export interface Recommendation {
+  id: string;
+  cropId: string;
+  category: "CLIMATE" | "HEALTH" | "IRRIGATION" | "NUTRITION" | "MARKET";
+  title: string;
+  summary: string;
+  priority: Priority;
+  confidence: number;
+  explanation: string;
+  evidence: Evidence[];
+  actions: RecommendedAction[];
+  requiresApproval: boolean;
+  status: RecommendationStatus;
+  createdAt: string;
+}
+```
+
+Estos tipos deben corresponder exactamente con el contrato del backend.
+
+---
+
+## 11. Capa de servicios
+
+No realizar peticiones HTTP directamente desde los componentes.
 
 Ejemplo:
 
-```text
-✓ Pull Requests revisadas
-6 PR, 2 sin revisión y 1 con CI fallido
-```
-
----
-
-# 23. Estado del streaming
-
 ```ts
-export type AgentUIState = {
-  sessionId: string | null;
-  status:
-    | "idle"
-    | "connecting"
-    | "streaming"
-    | "completed"
-    | "error";
-  text: string;
-  tools: Array<{
-    id: string;
-    name: string;
-    label: string;
-    status:
-      | "running"
-      | "completed"
-      | "failed";
-    summary?: string;
-    durationMs?: number;
-  }>;
-  recommendations: Recommendation[];
-  pendingActions: PendingAction[];
-  error: string | null;
+export const recommendationsService = {
+  async getByCrop(cropId: string): Promise<Recommendation[]> {
+    return apiClient.get(`/crops/${cropId}/recommendations`);
+  },
+
+  async approve(id: string): Promise<Recommendation> {
+    return apiClient.post(`/recommendations/${id}/approve`);
+  },
+
+  async reject(id: string): Promise<Recommendation> {
+    return apiClient.post(`/recommendations/${id}/reject`);
+  }
 };
 ```
 
-Usar un reducer o estado centralizado para el workspace.
-
-No permitir dos streams simultáneos.
-
----
-
-# 24. Sprint Planner
-
-Permitir:
-
-```text
-4 horas
-1 día
-3 días
-1 semana
-Personalizado
-```
-
-Componentes:
-
-```text
-TimeBudgetSelector
-SprintSummary
-SprintTaskList
-SprintTaskCard
-DependencyIndicator
-SprintWarnings
-```
-
-Mostrar:
-
-- Objetivo.
-- Tiempo.
-- Tareas.
-- Orden.
-- Dependencias.
-- Evidencia.
-- Motivo.
-- Advertencias.
-
-No crear un clon completo de Jira.
-
----
-
-# 25. Acciones confirmables
-
-Para crear una Issue mostrar:
-
-```text
-Nueva Issue propuesta
-
-Título
-Descripción
-Labels
-Repositorio
-Motivo
-Evidencia
-```
-
-Botones:
-
-```text
-Editar
-Cancelar
-Confirmar y crear
-```
-
-Reglas:
-
-- No ejecutar al abrir.
-- Deshabilitar durante envío.
-- Evitar doble click.
-- Esperar backend.
-- Mostrar URL real al terminar.
-- No perder el borrador ante error.
-- Manejar acción expirada.
-
----
-
-# 26. Responsive
-
-Revisar:
-
-```text
-375px
-768px
-1024px
-1440px
-```
-
-Móvil:
-
-- Sidebar colapsada.
-- Una columna.
-- Tablas convertidas en cards.
-- Agente a pantalla completa.
-- Sin scroll horizontal.
-- Acciones importantes visibles.
-
----
-
-# 27. Accesibilidad
-
-- Navegación por teclado.
-- Focus visible.
-- Labels.
-- Contraste.
-- Diálogos accesibles.
-- Errores asociados a campos.
-- `aria-live` para streaming.
-- `prefers-reduced-motion`.
-- No comunicar estado solo con color.
-
----
-
-# 28. Estados obligatorios
-
-```text
-loading
-empty
-success
-partial
-error
-unauthorized
-rate-limited
-offline
-syncing
-stale
-```
-
-Usar skeletons locales, no un spinner global.
-
----
-
-# 29. Fases de implementación
-
-## Fase 0 — Preparación
-
-- Importar contratos.
-- Cliente API.
-- Cliente SSE.
-- Mocks.
-- Fixtures.
-- Tests de cliente.
-
-## Fase 1 — Sistema visual
-
-- Tokens.
-- Layout.
-- Sidebar.
-- Header.
-- Componentes UI mínimos.
-
-## Fase 2 — Proyectos
-
-- Dashboard.
-- ProjectCard.
-- Empty state.
-- Conectar repositorio.
-- Sincronización.
-
-## Fase 3 — Overview
-
-- Métricas.
-- Health Score.
-- Prioridad.
-- Actividad.
-- Riesgos principales.
-
-## Fase 4 — Riesgos
-
-- Listado.
-- Filtros.
-- Drawer.
-- Evidencia.
-
-## Fase 5 — Agente
-
-- Workspace.
-- Composer.
-- SSE.
-- Tools.
-- Recomendaciones.
-
-## Fase 6 — Sprint
-
-- Selector.
-- Plan.
-- Tareas.
-- Dependencias.
-
-## Fase 7 — Acciones
-
-- Acción pendiente.
-- Confirmación.
-- Resultado.
-- Errores.
-
-## Fase 8 — Calidad
-
-- Responsive.
-- Accesibilidad.
-- Tests.
-- API real.
-- Demo mode.
-
-Solo implementar una fase por solicitud.
-
----
-
-# 30. Integración progresiva
-
-## Integración 1
-
-Después de contratos:
-
-- Importar tipos reales.
-- Validar fixtures.
-- Ejecutar typecheck.
-
-## Integración 2
-
-Después de proyectos:
-
-- Desactivar mocks solo para proyectos.
-- Probar listado y creación.
-
-## Integración 3
-
-Después de overview:
-
-- Usar datos reales.
-- Comparar con fixtures.
-- Corregir el cliente API, no cada componente.
-
-## Integración 4
-
-Después del agente:
-
-- Probar SSE.
-- Probar orden de eventos.
-- Probar cancelación.
-- Probar fallo de tool.
-
-## Integración 5
-
-Después de acciones:
-
-- Probar borrador.
-- Confirmar.
-- Evitar doble envío.
-- Mostrar URL real.
-
----
-
-# 31. Prompt principal para Codex
-
-```text
-Lee completamente FRONTEND_CODEX.md y úsalo como fuente de verdad.
-
-Actúa como Principal Frontend Engineer y Product Designer responsable de ForgeAI.
-
-No escribas código todavía.
-
-Primero:
-
-1. Inspecciona el repositorio.
-2. Identifica stack, rutas y estilos.
-3. Revisa shared/contracts.
-4. Confirma la propiedad de carpetas.
-5. Detecta archivos que no puedes modificar.
-6. Resume la arquitectura.
-7. Propón mapa de pantallas.
-8. Propón jerarquía de componentes.
-9. Explica el flujo de datos desde client/api.
-10. Explica la estrategia de mocks.
-11. Divide el trabajo en fases.
-12. Enumera los archivos de la primera fase.
-13. Espera mi aprobación.
-
-Reglas permanentes:
-
-- No modificar app/api.
-- No modificar server.
-- No modificar db.
-- No modificar shared/contracts.
-- No duplicar tipos.
-- No hacer fetch en componentes.
-- No mostrar chain-of-thought.
-- No simular acciones completadas.
-- Implementar una fase por vez.
-- Ejecutar lint, typecheck, tests y build.
+Los componentes deben usar hooks:
+
+```ts
+useCropRecommendations(cropId)
+useApproveRecommendation()
+useGenerateWeeklyPlan()
 ```
 
 ---
 
-# 32. Prompt para implementar una fase
+## 12. Desarrollo paralelo mediante mocks
+
+Mientras el backend no esté terminado:
+
+1. Crear respuestas mock que respeten exactamente el contrato.
+2. Usar MSW o un adaptador local.
+3. No inventar una estructura diferente a la acordada.
+4. Poder activar o desactivar mocks mediante variable de entorno.
+
+```env
+NEXT_PUBLIC_USE_MOCKS=true
+```
+
+Estructura:
 
 ```text
-Lee FRONTEND_CODEX.md y el estado actual del repositorio.
+mocks/
+├── handlers/
+│   ├── auth.handlers.ts
+│   ├── farms.handlers.ts
+│   ├── crops.handlers.ts
+│   └── recommendations.handlers.ts
+├── data/
+└── browser.ts
+```
 
-Implementa únicamente la Fase [NÚMERO Y NOMBRE].
+Cuando el backend esté disponible, la integración debe requerir únicamente cambiar la URL y desactivar los mocks.
 
-Antes de comenzar, enumera los archivos que modificarás.
+---
 
-No modifiques archivos backend.
-No modifiques contratos.
-Usa client/api.
-Mantén compatibilidad entre mock y API real.
+## 13. Estados obligatorios de interfaz
 
-Al finalizar:
+Cada vista con datos remotos debe incluir:
 
-- Ejecuta lint.
-- Ejecuta typecheck.
-- Ejecuta tests.
-- Ejecuta build.
-- Resume archivos modificados.
-- Enumera estados implementados.
-- Indica dependencias pendientes del backend.
-- Sugiere el siguiente paso sin implementarlo.
+- Estado de carga.
+- Estado de error.
+- Estado vacío.
+- Estado con datos.
+- Reintento cuando sea apropiado.
+- Retroalimentación luego de una acción.
+
+No se debe mostrar una pantalla en blanco mientras se espera una respuesta.
+
+---
+
+## 14. Flujo de trabajo ordenado
+
+### Fase 1 — Preparación
+
+1. Crear rama `frontend/develop` desde `develop`.
+2. Configurar TypeScript estricto.
+3. Crear sistema de estilos y componentes base.
+4. Configurar variables de entorno.
+5. Crear cliente HTTP.
+6. Crear tipos del contrato.
+
+### Fase 2 — Mock y contrato
+
+1. Implementar mocks.
+2. Crear servicios.
+3. Crear hooks de consulta y mutación.
+4. Validar respuestas.
+5. Probar errores y cargas.
+
+### Fase 3 — Navegación y estructura
+
+1. Layout principal.
+2. Sidebar.
+3. Header.
+4. Navegación móvil.
+5. Rutas protegidas.
+
+### Fase 4 — Funcionalidades
+
+1. Autenticación.
+2. Dashboard.
+3. Fincas y parcelas.
+4. Cultivos.
+5. Diagnóstico por imagen.
+6. Recomendaciones.
+7. Plan semanal.
+8. Asistente agrícola.
+
+### Fase 5 — Integración real
+
+1. Configurar URL del backend.
+2. Desactivar mocks.
+3. Corregir únicamente diferencias contra el contrato aprobado.
+4. Probar autenticación y CORS.
+5. Probar los flujos completos.
+
+### Fase 6 — Calidad
+
+1. Accesibilidad.
+2. Responsive.
+3. Pruebas de componentes.
+4. Pruebas de flujos críticos.
+5. Optimización de imágenes.
+6. Manejo de sesión expirada.
+7. Revisión de textos y mensajes.
+
+---
+
+## 15. Reglas para trabajar sin conflictos
+
+- No modificar archivos del backend.
+- No realizar llamadas `fetch` dispersas en componentes.
+- No duplicar tipos de dominio en varios lugares.
+- No inventar nuevos campos sin agregarlos al contrato.
+- No hardcodear la URL de la API.
+- No guardar secretos en variables `NEXT_PUBLIC_*`.
+- Crear una rama por funcionalidad:
+
+```text
+frontend/feature-dashboard
+frontend/feature-crops
+frontend/feature-diagnosis
+frontend/fix-recommendation-card
+```
+
+- Usar commits pequeños.
+- No mezclar refactorizaciones grandes con nuevas funciones.
+- Mantener componentes desacoplados de las respuestas HTTP.
+- Usar adaptadores cuando la API requiera transformación.
+
+---
+
+## 16. Criterios de aceptación del frontend
+
+El frontend se considera listo para integración cuando:
+
+- Inicia con un solo comando documentado.
+- Incluye `env.example`.
+- Puede trabajar completamente con mocks.
+- Todas las llamadas están centralizadas en servicios.
+- Los tipos coinciden con el contrato.
+- El cambio de mocks a API real no requiere modificar componentes.
+- Funciona en móvil y escritorio.
+- Incluye estados de carga, error y vacío.
+- No expone secretos.
+- Las acciones importantes requieren confirmación cuando corresponda.
+- Las recomendaciones muestran explicación, evidencia y confianza.
+
+---
+
+## 17. Prompt para Codex — Frontend
+
+```text
+Actúa como arquitecto frontend senior y desarrollador experto en Next.js, React y TypeScript.
+
+Debes implementar el frontend de AgroPilot AI siguiendo estrictamente este documento.
+
+Objetivo del producto:
+AgroPilot AI ayuda a pequeños y medianos productores a registrar fincas, parcelas y cultivos, analizar imágenes, consultar clima y mercado, recibir recomendaciones explicables, aprobar acciones y seguir planes semanales generados por un sistema multiagente.
+
+Responsabilidades:
+- Construir únicamente el frontend.
+- Crear una interfaz responsive para móvil y escritorio.
+- Usar Next.js con App Router, React y TypeScript estricto.
+- Centralizar todas las peticiones en una capa de servicios.
+- Mantener tipos alineados con API_CONTRACT.md.
+- Trabajar inicialmente con mocks compatibles con la API.
+- Implementar estados de carga, error, vacío y éxito.
+- Mostrar evidencia, explicación, confianza y prioridad en cada recomendación.
+- No colocar reglas críticas de negocio en componentes visuales.
+
+Diseño:
+- 60 % gris oscuro.
+- 30 % negro.
+- 10 % rojo.
+- El rojo se usa solo para acciones, estados activos y alertas importantes.
+- Mantén buen contraste, jerarquía visual, accesibilidad y espacios consistentes.
+
+Reglas de integración:
+1. No modifiques archivos del backend.
+2. No cambies endpoints ni propiedades del contrato.
+3. No hagas fetch directamente en componentes.
+4. No hardcodees URLs.
+5. No dupliques tipos.
+6. No guardes secretos en variables públicas.
+7. Usa NEXT_PUBLIC_API_URL para la API.
+8. Usa NEXT_PUBLIC_USE_MOCKS para alternar entre mocks y backend real.
+9. Si la API cambia, actualiza primero el contrato compartido.
+10. Mantén componentes pequeños y reutilizables.
+
+Orden de implementación:
+1. Analiza el repositorio actual.
+2. Resume la arquitectura encontrada.
+3. Indica los archivos que crearás o modificarás.
+4. Configura estilos, layout, tipos y cliente HTTP.
+5. Implementa mocks y servicios.
+6. Implementa autenticación.
+7. Implementa dashboard.
+8. Implementa fincas, parcelas y cultivos.
+9. Implementa diagnóstico por imagen.
+10. Implementa recomendaciones, evidencia y aprobación.
+11. Implementa plan semanal y asistente.
+12. Integra la API real sin cambiar componentes.
+13. Ejecuta lint, tipos, pruebas y build.
+
+Durante cada paso:
+- Explica brevemente el cambio.
+- Realiza modificaciones pequeñas.
+- Reutiliza lo existente antes de crear duplicados.
+- No elimines código funcional sin justificarlo.
+- No avances dejando errores conocidos.
+
+Resultado esperado:
+Un frontend accesible, responsive, tipado y desacoplado, capaz de funcionar con mocks y de conectarse posteriormente al backend únicamente mediante configuración, sin reescribir componentes.
 ```
 
 ---
 
-# 33. Prompt para integrar endpoint
+## 18. Entregables del responsable del frontend
 
-```text
-Integra únicamente el endpoint [RUTA].
-
-Antes de modificar:
-
-1. Revisa shared/contracts.
-2. Revisa el ejemplo real.
-3. Revisa el fixture.
-4. Revisa el cliente API.
-5. Identifica diferencias.
-
-No cambies componentes si puede resolverse en client/api.
-No modifiques contratos.
-
-Al finalizar ejecuta tests del cliente, typecheck y build.
-```
-
----
-
-# 34. Prompt para resolver incompatibilidad
-
-```text
-Analiza el conflicto sin modificar código.
-
-Compara:
-
-- shared/contracts;
-- cliente API;
-- fixture;
-- componente;
-- payload real;
-- test fallido.
-
-Identifica una causa raíz.
-
-Propón el cambio mínimo compatible.
-
-No agregues propiedades opcionales para ocultar errores.
-No modifiques shared/contracts.
-Espera aprobación.
-```
-
----
-
-# 35. Checklist Pull Request
-
-- [ ] Lint pasa.
-- [ ] Typecheck pasa.
-- [ ] Tests pasan.
-- [ ] Build pasa.
-- [ ] No se modificó backend.
-- [ ] No se modificaron contratos.
-- [ ] No hay tipos duplicados.
-- [ ] Todo HTTP usa el cliente API.
-- [ ] Los mocks respetan el contrato.
-- [ ] Existen estados de error.
-- [ ] Streaming cancelable.
-- [ ] Responsive probado.
-- [ ] Acciones requieren confirmación.
-- [ ] Rama actualizada.
-
----
-
-# 36. Definición de terminado
-
-Frontend listo cuando:
-
-- Conecta un repositorio.
-- Muestra sincronización.
-- Presenta overview.
-- Explica Health Score.
-- Muestra riesgos y evidencia.
-- Consume SSE.
-- Muestra tools.
-- Presenta recomendaciones.
-- Genera sprint.
-- Confirma acciones.
-- Funciona con mock y API real.
-- Funciona en móvil.
-- Pasa lint, typecheck, tests y build.
-
-Mantener progreso en:
-
-```text
-docs/integration/FRONTEND_PROGRESS.md
-```
+- Código del frontend.
+- `README.md` con instalación y ejecución.
+- `env.example`.
+- Componentes reutilizables.
+- Tipos compartidos.
+- Cliente HTTP.
+- Servicios y hooks.
+- Mocks compatibles con la API.
+- Pruebas de componentes y flujos críticos.
+- Registro de decisiones técnicas.
+- Validación final contra `API_CONTRACT.md`.
