@@ -16,3 +16,5 @@ Ayudar al productor o técnico a tomar mejores decisiones sobre riego, nutrició
 - Conversaciones con un asistente agrícola y notificaciones.
 
 El proyecto está organizado para que frontend y backend puedan evolucionar en paralelo mediante un contrato de API versionado.
+
+Consulta la [guía de usuario](USER_GUIDE.md) para conocer el flujo de uso de la plataforma.
