@@ -1,0 +1,33 @@
+import { existsSync, mkdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+import cors from 'cors';
+import express from 'express';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import swaggerUi from 'swagger-ui-express';
+import { env } from './config/env.js';
+import { openApiDocument } from './config/openapi.js';
+import { errorHandler } from './common/middleware/error-handler.js';
+import { routeNotFound } from './common/middleware/not-found.js';
+import { requestId } from './common/middleware/request-id.js';
+import { ok } from './common/http/response.js';
+import { authRouter } from './modules/auth/auth.routes.js';
+
+export function createApp() {
+  const app = express();
+  const uploadPath = resolve(process.cwd(), env.UPLOAD_DIR);
+  if (!existsSync(uploadPath)) mkdirSync(uploadPath, { recursive: true });
+  app.disable('x-powered-by');
+  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(cors({ origin: env.FRONTEND_ORIGIN.split(',').map((origin) => origin.trim()), credentials: true }));
+  app.use(express.json({ limit: '1mb' }));
+  app.use(requestId);
+  app.use('/api/v1', rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: 'draft-8', legacyHeaders: false }));
+  app.use('/uploads', express.static(uploadPath));
+  app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
+  app.get('/api/v1/health', (_req, res) => ok(res, { status: 'ok' }));
+  app.use('/api/v1/auth', authRouter);
+  app.use('/api/v1', routeNotFound);
+  app.use(errorHandler);
+  return app;
+}

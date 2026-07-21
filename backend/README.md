@@ -19,7 +19,7 @@ npm run db:deploy
 npm run dev
 ```
 
-La API quedará disponible en `http://localhost:4000/api/v1`. La documentación OpenAPI se publicará en `/api/docs` en el paso de infraestructura HTTP.
+La API quedará disponible en `http://localhost:4000/api/v1` y la documentación Swagger/OpenAPI en `http://localhost:4000/api/docs`.
 
 ## Comandos
 
