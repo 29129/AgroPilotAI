@@ -6,7 +6,7 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>AgroPilot AI — Presentación</title>
-<style>:root{color-scheme:dark;background:rgb(8 9 9)}html,body{margin:0;min-height:100%;background:rgb(8 9 9)}body{box-sizing:border-box;padding:0}iframe{display:block;width:100%;max-width:none;height:100vh;margin:0;border:0}</style>
+<style>:root{color-scheme:light;background:rgb(240 240 235)}html,body{margin:0;min-height:100%;background:rgb(240 240 235)}body{box-sizing:border-box;padding:0}iframe{display:block;width:100%;max-width:none;height:100vh;margin:0;border:0}</style>
 </head>
 <body>
 <iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="AgroPilot AI — Presentación" srcdoc="&lt;!doctype html&gt;
@@ -818,16 +818,16 @@ html&gt;body{padding:0}&lt;/style&gt;
     @import url(&#x27;https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500&amp;display=swap&#x27;);
 
     #agropilot-deck {
-      --ink: #f7f7f5;
-      --muted: #a0a4a8;
-      --black: #080909;
-      --graphite: #17191a;
-      --surface: #232627;
-      --line: rgba(247, 247, 245, .15);
-      --red: #ed3b38;
-      --green: #98db8a;
-      --cyan: #80d4dc;
-      --yellow: #ebc26f;
+      --ink: #111615;
+      --muted: #555e5b;
+      --black: #f0f0eb;
+      --graphite: #d8dad5;
+      --surface: #ffffff;
+      --line: rgba(17, 22, 21, .18);
+      --red: #c8292f;
+      --green: #287b3d;
+      --cyan: #147b89;
+      --yellow: #946315;
       --font-display: &#x27;Manrope&#x27;, ui-sans-serif, system-ui, sans-serif;
       --font-mono: &#x27;DM Mono&#x27;, ui-monospace, monospace;
       color: var(--ink);
@@ -838,6 +838,19 @@ html&gt;body{padding:0}&lt;/style&gt;
       overflow: hidden;
       position: relative;
       isolation: isolate;
+    }
+
+    #agropilot-deck[data-theme=&quot;dark&quot;] {
+      --ink: #f7f7f5;
+      --muted: #a0a4a8;
+      --black: #080909;
+      --graphite: #17191a;
+      --surface: #232627;
+      --line: rgba(247, 247, 245, .15);
+      --red: #ed3b38;
+      --green: #98db8a;
+      --cyan: #80d4dc;
+      --yellow: #ebc26f;
     }
 
     #agropilot-deck *,
@@ -851,9 +864,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     #agropilot-deck .deck-glow { pointer-events: none; position: absolute; inset: 0; }
 
     #agropilot-deck .deck-noise {
-      opacity: .17;
+      opacity: .055;
       background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox=&#x27;0 0 180 180&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3E%3Cfilter id=&#x27;n&#x27;%3E%3CfeTurbulence type=&#x27;fractalNoise&#x27; baseFrequency=&#x27;.9&#x27; numOctaves=&#x27;4&#x27; stitchTiles=&#x27;stitch&#x27;/%3E%3C/filter%3E%3Crect width=&#x27;100%25&#x27; height=&#x27;100%25&#x27; filter=&#x27;url(%23n)&#x27; opacity=&#x27;.45&#x27;/%3E%3C/svg%3E&quot;);
-      mix-blend-mode: screen;
+      mix-blend-mode: multiply;
     }
 
     #agropilot-deck .deck-grid {
@@ -904,6 +917,9 @@ html&gt;body{padding:0}&lt;/style&gt;
     #agropilot-deck .brand { display: flex; align-items: center; gap: 10px; letter-spacing: .16em; }
     #agropilot-deck .brand-mark { width: 12px; height: 12px; background: var(--red); transform: rotate(45deg); box-shadow: 0 0 24px rgba(237, 59, 56, .8); }
     #agropilot-deck .counter { color: var(--muted); }
+    #agropilot-deck .theme-toggle { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 7px 10px; cursor: pointer; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+    #agropilot-deck .theme-toggle:hover { color: var(--ink); border-color: var(--red); background: rgba(200, 41, 47, .09); }
+    #agropilot-deck .theme-toggle:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
     #agropilot-deck .counter strong { color: var(--ink); font-weight: 500; }
 
     #agropilot-deck .slide-stage { position: relative; min-height: 0; overflow: hidden; }
@@ -1081,6 +1097,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;header class=&quot;deck-top&quot;&gt;
       &lt;div class=&quot;brand&quot;&gt;&lt;span class=&quot;brand-mark&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; AgroPilot AI&lt;/div&gt;
       &lt;div class=&quot;counter&quot; aria-live=&quot;polite&quot;&gt;&lt;strong id=&quot;deck-current&quot;&gt;01&lt;/strong&gt; / 07&lt;/div&gt;
+      &lt;button class=&quot;theme-toggle&quot; type=&quot;button&quot; id=&quot;theme-toggle&quot; aria-pressed=&quot;false&quot;&gt;Modo oscuro&lt;/button&gt;
     &lt;/header&gt;
 
     &lt;main class=&quot;slide-stage&quot;&gt;
@@ -1221,8 +1238,10 @@ html&gt;body{padding:0}&lt;/style&gt;
       const progress = root.querySelector(&#x27;#deck-progress&#x27;);
       const previousButton = root.querySelector(&#x27;#deck-prev&#x27;);
       const nextButton = root.querySelector(&#x27;#deck-next&#x27;);
+      const themeToggle = root.querySelector(&#x27;#theme-toggle&#x27;);
       let index = 0;
       let isChanging = false;
+      let isDark = false;
 
       const showSlide = (nextIndex) =&gt; {
         if (isChanging || nextIndex === index || nextIndex &lt; 0 || nextIndex &gt;= slides.length) return;
@@ -1250,7 +1269,15 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (event.key === &#x27;ArrowLeft&#x27;) { event.preventDefault(); previous(); }
         if (event.key === &#x27;Home&#x27;) { event.preventDefault(); showSlide(0); }
         if (event.key === &#x27;End&#x27;) { event.preventDefault(); showSlide(slides.length - 1); }
+        if (event.key.toLowerCase() === &#x27;p&#x27;) toggleTheme();
       });
+      const toggleTheme = () =&gt; {
+        isDark = !isDark;
+        root.dataset.theme = isDark ? &#x27;dark&#x27; : &#x27;projector&#x27;;
+        themeToggle.textContent = isDark ? &#x27;Modo proyector&#x27; : &#x27;Modo oscuro&#x27;;
+        themeToggle.setAttribute(&#x27;aria-pressed&#x27;, String(isDark));
+      };
+      themeToggle.addEventListener(&#x27;click&#x27;, toggleTheme);
       progress.style.transform = `scaleX(${1 / slides.length})`;
     })();
   &lt;/script&gt;
