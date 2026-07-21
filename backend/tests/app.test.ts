@@ -37,4 +37,10 @@ describe('HTTP API foundation', () => {
     expect(response.status).toBe(401);
     expect(response.body).toMatchObject({ success: false, error: { code: 'UNAUTHORIZED' } });
   });
+
+  it('protects multi-agent analysis', async () => {
+    const response = await request(app).post('/api/v1/crops/1d000000-0000-4000-8000-000000000001/analysis').send({ analysisType: 'FULL' });
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({ success: false, error: { code: 'UNAUTHORIZED' } });
+  });
 });
