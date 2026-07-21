@@ -10,6 +10,7 @@ import { asyncHandler } from '../../common/utils/async-handler.js';
 import { ok } from '../../common/http/response.js';
 import { cropIdSchema, diagnosisIdSchema, diagnosisInputSchema } from './diagnosis.schemas.js';
 import { diagnosisService } from './diagnosis.service.js';
+import { storeImage } from '../../integrations/storage.service.js';
 
 const directory = resolve(process.cwd(), env.UPLOAD_DIR);
 if (!existsSync(directory)) mkdirSync(directory, { recursive: true });
@@ -24,7 +25,7 @@ diagnosisRouter.post('/crops/:cropId/diagnoses', authenticate, upload.single('im
   const { cropId } = cropIdSchema.parse(req.params);
   const { symptoms } = diagnosisInputSchema.parse(req.body);
   if (!req.file) throw new AppError(400, 'IMAGE_REQUIRED', 'Debes adjuntar una imagen JPEG, PNG o WebP de hasta 5 MB.');
-  const imageUrl = `${env.PUBLIC_API_URL}/uploads/${req.file.filename}`;
+  const imageUrl = await storeImage(req.file);
   return ok(res, await diagnosisService.create(cropId, req.user!, imageUrl, symptoms), 201);
 }));
 diagnosisRouter.get('/crops/:cropId/diagnoses', authenticate, asyncHandler(async (req, res) => {
