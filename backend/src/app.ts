@@ -17,6 +17,7 @@ import { diagnosisRouter } from './modules/diagnoses/diagnosis.routes.js';
 import { intelligenceRouter } from './modules/intelligence/intelligence.routes.js';
 import { conversationRouter } from './modules/conversations/conversation.routes.js';
 import { marketRouter } from './modules/market/market.routes.js';
+import { notificationRouter } from './modules/notifications/notification.routes.js';
 
 export function createApp() {
   const app = express();
@@ -39,6 +40,7 @@ export function createApp() {
   app.use('/api/v1', intelligenceRouter);
   app.use('/api/v1/conversations', conversationRouter);
   app.use('/api/v1/market', marketRouter);
+  app.use('/api/v1/notifications', notificationRouter);
   app.use('/api/v1', routeNotFound);
   app.use(errorHandler);
   return app;
