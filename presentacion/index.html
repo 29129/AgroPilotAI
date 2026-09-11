@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>AgroPilot AI — Presentación</title>
+<style>:root{color-scheme:light;background:rgb(240 240 235)}html,body{margin:0;min-height:100%;background:rgb(240 240 235)}body{box-sizing:border-box;padding:0}iframe{display:block;width:100%;max-width:none;height:100vh;margin:0;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="AgroPilot AI — Presentación" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;AgroPilot AI — Presentación&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(--background) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: light-dark(rgb(255 255 255), rgb(24 24 24));
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 12.5px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--viz-font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed=&quot;true&quot;],
+    [aria-selected=&quot;true&quot;],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;section id=&quot;agropilot-deck&quot; aria-label=&quot;Presentación de AgroPilot AI&quot;&gt;
+  &lt;style&gt;
+    @import url(&#x27;https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500&amp;display=swap&#x27;);
+
+    #agropilot-deck {
+      --ink: #111615;
+      --muted: #555e5b;
+      --black: #f0f0eb;
+      --graphite: #d8dad5;
+      --surface: #ffffff;
+      --line: rgba(17, 22, 21, .18);
+      --red: #c8292f;
+      --green: #287b3d;
+      --cyan: #147b89;
+      --yellow: #946315;
+      --font-display: &#x27;Manrope&#x27;, ui-sans-serif, system-ui, sans-serif;
+      --font-mono: &#x27;DM Mono&#x27;, ui-monospace, monospace;
+      color: var(--ink);
+      font-family: var(--font-display);
+      background: var(--black);
+      height: 100svh;
+      min-height: 0;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    #agropilot-deck[data-theme=&quot;dark&quot;] {
+      --ink: #f7f7f5;
+      --muted: #a0a4a8;
+      --black: #080909;
+      --graphite: #17191a;
+      --surface: #232627;
+      --line: rgba(247, 247, 245, .15);
+      --red: #ed3b38;
+      --green: #98db8a;
+      --cyan: #80d4dc;
+      --yellow: #ebc26f;
+    }
+
+    #agropilot-deck *,
+    #agropilot-deck *::before,
+    #agropilot-deck *::after { box-sizing: border-box; }
+
+    #agropilot-deck button { font: inherit; }
+
+    #agropilot-deck .deck-noise,
+    #agropilot-deck .deck-grid,
+    #agropilot-deck .deck-glow { pointer-events: none; position: absolute; inset: 0; }
+
+    #agropilot-deck .deck-noise {
+      opacity: .055;
+      background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox=&#x27;0 0 180 180&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3E%3Cfilter id=&#x27;n&#x27;%3E%3CfeTurbulence type=&#x27;fractalNoise&#x27; baseFrequency=&#x27;.9&#x27; numOctaves=&#x27;4&#x27; stitchTiles=&#x27;stitch&#x27;/%3E%3C/filter%3E%3Crect width=&#x27;100%25&#x27; height=&#x27;100%25&#x27; filter=&#x27;url(%23n)&#x27; opacity=&#x27;.45&#x27;/%3E%3C/svg%3E&quot;);
+      mix-blend-mode: multiply;
+    }
+
+    #agropilot-deck .deck-grid {
+      opacity: .25;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(130deg, black, transparent 68%);
+    }
+
+    #agropilot-deck .deck-glow {
+      background: radial-gradient(circle at 78% 22%, rgba(237, 59, 56, .19), transparent 26%), radial-gradient(circle at 8% 93%, rgba(128, 212, 220, .10), transparent 25%);
+    }
+
+    #agropilot-deck .deck-shell {
+      height: 100%;
+      min-height: 0;
+      padding: clamp(18px, 3vh, 34px) clamp(22px, 4vw, 58px);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: clamp(16px, 3vh, 32px);
+      position: relative;
+      z-index: 1;
+    }
+
+    #agropilot-deck .deck-top,
+    #agropilot-deck .deck-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    #agropilot-deck .brand,
+    #agropilot-deck .eyebrow,
+    #agropilot-deck .counter,
+    #agropilot-deck .signal-label,
+    #agropilot-deck .tag,
+    #agropilot-deck .metric-label,
+    #agropilot-deck .node-kicker,
+    #agropilot-deck .stack-label,
+    #agropilot-deck .footer-note {
+      font-family: var(--font-mono);
+      font-size: clamp(10px, 1.1vw, 13px);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    #agropilot-deck .brand { display: flex; align-items: center; gap: 10px; letter-spacing: .16em; }
+    #agropilot-deck .brand-mark { width: 12px; height: 12px; background: var(--red); transform: rotate(45deg); box-shadow: 0 0 24px rgba(237, 59, 56, .8); }
+    #agropilot-deck .counter { color: var(--muted); }
+    #agropilot-deck .theme-toggle { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 7px 10px; cursor: pointer; font-family: var(--font-mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+    #agropilot-deck .theme-toggle:hover { color: var(--ink); border-color: var(--red); background: rgba(200, 41, 47, .09); }
+    #agropilot-deck .theme-toggle:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    #agropilot-deck .counter strong { color: var(--ink); font-weight: 500; }
+
+    #agropilot-deck .slide-stage { position: relative; min-height: 0; overflow: hidden; }
+    #agropilot-deck .slide { position: absolute; inset: 0; display: block; overflow-y: auto; overscroll-behavior: contain; opacity: 0; pointer-events: none; transform: translate3d(30px, 0, 0); transition: opacity .48s ease, transform .58s cubic-bezier(.2,.8,.2,1); }
+    #agropilot-deck .slide.is-active { opacity: 1; pointer-events: auto; transform: translate3d(0, 0, 0); }
+    #agropilot-deck .slide.is-exiting { opacity: 0; transform: translate3d(-30px, 0, 0); }
+
+    #agropilot-deck .slide-inner { width: min(1180px, 100%); min-height: 100%; margin: 0 auto; padding-block: clamp(8px, 2vh, 20px); align-content: center; }
+    #agropilot-deck .title-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); align-items: end; gap: clamp(28px, 6vw, 90px); }
+    #agropilot-deck .section-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .9fr); align-items: center; gap: clamp(28px, 6vw, 90px); }
+    #agropilot-deck .wide-layout { display: grid; gap: clamp(24px, 4vw, 54px); }
+
+    #agropilot-deck .eyebrow { color: var(--red); display: flex; align-items: center; gap: 10px; margin: 0 0 20px; }
+    #agropilot-deck .eyebrow::before { content: &#x27;&#x27;; width: 36px; height: 1px; background: currentColor; }
+    #agropilot-deck h1,
+    #agropilot-deck h2,
+    #agropilot-deck h3,
+    #agropilot-deck p { margin: 0; }
+    #agropilot-deck h1 { font-size: clamp(52px, 10.6vw, 150px); max-width: 9ch; line-height: .86; letter-spacing: -.07em; font-weight: 500; }
+    #agropilot-deck h2 { font-size: clamp(36px, 6vw, 78px); max-width: 11ch; line-height: .94; letter-spacing: -.065em; font-weight: 500; }
+    #agropilot-deck h3 { font-size: clamp(18px, 2.1vw, 28px); line-height: 1.05; font-weight: 500; letter-spacing: -.04em; }
+    #agropilot-deck .lead { margin-top: 26px; max-width: 46ch; color: var(--muted); font-size: clamp(16px, 2vw, 23px); line-height: 1.5; }
+    #agropilot-deck .lead strong { color: var(--ink); font-weight: 500; }
+
+    #agropilot-deck .title-side { padding-bottom: 9px; }
+    #agropilot-deck .title-line { height: 1px; width: 100%; background: var(--line); position: relative; margin-bottom: 24px; overflow: hidden; }
+    #agropilot-deck .title-line::after { content: &#x27;&#x27;; width: 32%; height: 100%; background: var(--red); display: block; animation: scan 2.4s ease-in-out infinite; }
+    #agropilot-deck .title-points { list-style: none; padding: 0; margin: 0; display: grid; gap: 13px; }
+    #agropilot-deck .title-points li { display: flex; gap: 12px; align-items: baseline; color: var(--muted); font-size: clamp(13px, 1.5vw, 17px); }
+    #agropilot-deck .title-points span { color: var(--red); font-family: var(--font-mono); font-size: 11px; }
+
+    #agropilot-deck .crop-orbit { aspect-ratio: 1; position: relative; width: min(100%, 400px); margin-left: auto; }
+    #agropilot-deck .orbit-ring { position: absolute; border: 1px solid var(--line); border-radius: 50%; inset: 5%; }
+    #agropilot-deck .orbit-ring:nth-child(2) { inset: 20%; border-color: rgba(237, 59, 56, .55); }
+    #agropilot-deck .orbit-ring:nth-child(3) { inset: 35%; border-color: rgba(128, 212, 220, .55); }
+    #agropilot-deck .crop-core { position: absolute; inset: 42%; background: var(--red); transform: rotate(45deg); box-shadow: 0 0 65px rgba(237, 59, 56, .58); }
+    #agropilot-deck .orbit-dot { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); left: 49%; top: 2%; transform-origin: 2px 190px; animation: orbit 8s linear infinite; }
+    #agropilot-deck .orbit-dot.two { width: 8px; height: 8px; background: var(--cyan); top: 25%; left: 72%; transform-origin: -86px 104px; animation-duration: 5s; animation-direction: reverse; }
+    #agropilot-deck .orbit-label { position: absolute; right: 2%; bottom: 7%; color: var(--muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; }
+
+    #agropilot-deck .problem-list { border-top: 1px solid var(--line); }
+    #agropilot-deck .problem-row { display: grid; grid-template-columns: 50px 1fr auto; gap: 14px; align-items: center; padding: clamp(13px, 2vw, 22px) 0; border-bottom: 1px solid var(--line); }
+    #agropilot-deck .problem-no { color: var(--red); font-family: var(--font-mono); font-size: 12px; }
+    #agropilot-deck .problem-row strong { font-size: clamp(16px, 2vw, 23px); font-weight: 400; }
+    #agropilot-deck .problem-row span { color: var(--muted); text-align: right; font-size: clamp(11px, 1.2vw, 14px); }
+    #agropilot-deck .decision-pulse { min-height: 390px; display: grid; place-items: center; position: relative; }
+    #agropilot-deck .decision-pulse::before, #agropilot-deck .decision-pulse::after { content: &#x27;&#x27;; position: absolute; width: clamp(230px, 28vw, 360px); aspect-ratio: 1; border: 1px solid rgba(237, 59, 56, .3); border-radius: 50%; animation: pulse 3.6s ease-out infinite; }
+    #agropilot-deck .decision-pulse::after { animation-delay: 1.8s; }
+    #agropilot-deck .decision-word { z-index: 1; display: grid; place-items: center; text-align: center; width: 138px; aspect-ratio: 1; background: var(--red); color: var(--black); transform: rotate(45deg); box-shadow: 0 0 65px rgba(237, 59, 56, .32); }
+    #agropilot-deck .decision-word span { transform: rotate(-45deg); font-family: var(--font-mono); font-size: 12px; letter-spacing: .09em; }
+    #agropilot-deck .decision-caption { position: absolute; bottom: 7%; text-align: center; max-width: 30ch; color: var(--muted); font-size: 14px; }
+
+    #agropilot-deck .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; align-items: center; }
+    #agropilot-deck .flow-step { min-height: 220px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+    #agropilot-deck .flow-step::after { content: &#x27;→&#x27;; color: var(--muted); position: absolute; right: -9px; top: 50%; transform: translateY(-50%); z-index: 2; font-size: 21px; }
+    #agropilot-deck .flow-step:last-child::after { display: none; }
+    #agropilot-deck .flow-icon { width: 43px; height: 43px; display: grid; place-items: center; color: var(--red); border: 1px solid rgba(237, 59, 56, .55); }
+    #agropilot-deck .flow-icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+    #agropilot-deck .flow-step:nth-child(3) .flow-icon { background: var(--red); color: var(--black); }
+    #agropilot-deck .flow-step p { margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    #agropilot-deck .step-number { color: var(--muted); font-family: var(--font-mono); font-size: 10px; }
+    #agropilot-deck .flow-note { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin-top: clamp(24px, 5vw, 54px); color: var(--muted); font-size: clamp(14px, 1.6vw, 18px); }
+    #agropilot-deck .flow-note strong { color: var(--ink); font-weight: 500; }
+
+    #agropilot-deck .agent-system { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: clamp(16px, 3vw, 36px); align-items: center; }
+    #agropilot-deck .agent-rail { display: grid; gap: 12px; }
+    #agropilot-deck .agent-node { padding: 16px 0; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); }
+    #agropilot-deck .agent-node:first-child { border-top: 1px solid var(--line); }
+    #agropilot-deck .agent-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px rgba(128, 212, 220, .55); }
+    #agropilot-deck .agent-node:nth-child(2) .agent-dot { background: var(--green); box-shadow: 0 0 14px rgba(152, 219, 138, .55); }
+    #agropilot-deck .agent-node:nth-child(3) .agent-dot { background: var(--yellow); box-shadow: 0 0 14px rgba(235, 194, 111, .55); }
+    #agropilot-deck .agent-node:nth-child(4) .agent-dot { background: var(--red); box-shadow: 0 0 14px rgba(237, 59, 56, .55); }
+    #agropilot-deck .agent-node h3 { font-size: clamp(16px, 1.8vw, 22px); }
+    #agropilot-deck .agent-node p { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    #agropilot-deck .orchestrator { min-height: 330px; display: grid; place-items: center; position: relative; }
+    #agropilot-deck .orchestrator::before { content: &#x27;&#x27;; position: absolute; inset: 8%; border: 1px solid var(--line); transform: rotate(45deg); }
+    #agropilot-deck .orchestrator::after { content: &#x27;&#x27;; position: absolute; inset: 21%; border: 1px solid rgba(237, 59, 56, .5); transform: rotate(45deg); animation: rotate-grid 12s linear infinite; }
+    #agropilot-deck .orch-core { width: 125px; aspect-ratio: 1; display: grid; place-items: center; text-align: center; position: relative; z-index: 1; background: var(--graphite); border: 1px solid var(--red); box-shadow: 0 0 60px rgba(237, 59, 56, .24); }
+    #agropilot-deck .orch-core span { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; line-height: 1.55; }
+    #agropilot-deck .agent-output { min-height: 270px; padding: 26px; position: relative; overflow: hidden; background: linear-gradient(145deg, rgba(237, 59, 56, .18), transparent 68%), var(--surface); border-left: 1px solid rgba(237, 59, 56, .7); }
+    #agropilot-deck .agent-output .node-kicker { color: var(--red); }
+    #agropilot-deck .agent-output h3 { margin-top: 16px; }
+    #agropilot-deck .agent-output p { margin-top: 16px; color: var(--muted); line-height: 1.45; }
+    #agropilot-deck .agent-output .confidence { position: absolute; right: 18px; bottom: 17px; color: var(--ink); font-family: var(--font-mono); font-size: 13px; }
+
+    #agropilot-deck .truth-stack { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .8fr); gap: clamp(32px, 6vw, 100px); align-items: center; }
+    #agropilot-deck .evidence-card { border-left: 1px solid var(--line); padding: 15px 0 15px 20px; }
+    #agropilot-deck .evidence-card + .evidence-card { margin-top: 14px; }
+    #agropilot-deck .evidence-card:nth-child(1) { border-left-color: var(--cyan); }
+    #agropilot-deck .evidence-card:nth-child(2) { border-left-color: var(--yellow); }
+    #agropilot-deck .evidence-card:nth-child(3) { border-left-color: var(--red); }
+    #agropilot-deck .stack-label { color: var(--muted); }
+    #agropilot-deck .evidence-card h3 { margin-top: 6px; }
+    #agropilot-deck .evidence-card p { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.45; }
+    #agropilot-deck .approval-visual { display: grid; place-items: center; min-height: 350px; }
+    #agropilot-deck .approval-ring { width: min(80vw, 310px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; position: relative; background: conic-gradient(var(--red) 0deg 122deg, var(--line) 122deg 360deg); }
+    #agropilot-deck .approval-ring::before { content: &#x27;&#x27;; width: 82%; aspect-ratio: 1; border-radius: inherit; background: var(--black); position: absolute; }
+    #agropilot-deck .approval-center { position: relative; z-index: 1; text-align: center; }
+    #agropilot-deck .approval-center strong { display: block; font-size: clamp(48px, 7vw, 82px); letter-spacing: -.08em; font-weight: 500; }
+    #agropilot-deck .approval-center span { display: block; color: var(--muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; margin-top: 7px; }
+    #agropilot-deck .approval-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; max-width: 360px; margin-top: 16px; }
+    #agropilot-deck .tag { padding: 7px 9px; border: 1px solid var(--line); color: var(--muted); letter-spacing: .06em; }
+    #agropilot-deck .tag:first-child { color: var(--red); border-color: rgba(237, 59, 56, .6); }
+
+    #agropilot-deck .architecture { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 13px; }
+    #agropilot-deck .architecture-col { min-height: 375px; padding: 22px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; }
+    #agropilot-deck .architecture-col.featured { border-color: rgba(237, 59, 56, .75); background: linear-gradient(180deg, rgba(237, 59, 56, .14), transparent 58%); }
+    #agropilot-deck .architecture-col h3 { margin: 13px 0 19px; }
+    #agropilot-deck .architecture-list { list-style: none; padding: 0; margin: auto 0 0; display: grid; gap: 10px; }
+    #agropilot-deck .architecture-list li { display: flex; justify-content: space-between; gap: 9px; color: var(--muted); font-size: 13px; padding-top: 10px; border-top: 1px solid rgba(247, 247, 245, .09); }
+    #agropilot-deck .architecture-list li span { color: var(--ink); font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; }
+    #agropilot-deck .architecture-foot { margin-top: 22px; display: flex; justify-content: space-between; gap: 22px; color: var(--muted); font-size: 14px; }
+
+    #agropilot-deck .final-layout { min-height: 100%; display: grid; align-content: center; }
+    #agropilot-deck .final-title { max-width: 12ch; }
+    #agropilot-deck .final-title em { color: var(--red); font-style: normal; }
+    #agropilot-deck .closing-line { margin-top: clamp(28px, 5vw, 62px); padding-top: 16px; border-top: 1px solid var(--line); max-width: 720px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: clamp(14px, 1.8vw, 18px); }
+    #agropilot-deck .closing-line strong { color: var(--ink); font-weight: 500; }
+    #agropilot-deck .final-grid { position: absolute; right: clamp(22px, 6vw, 100px); bottom: clamp(68px, 13vh, 150px); width: min(31vw, 310px); aspect-ratio: 1; background-image: linear-gradient(rgba(237, 59, 56, .25) 1px, transparent 1px), linear-gradient(90deg, rgba(237, 59, 56, .25) 1px, transparent 1px); background-size: 16.66% 16.66%; transform: perspective(600px) rotateX(60deg) rotateZ(-45deg); opacity: .72; animation: final-grid 5s ease-in-out infinite; }
+
+    #agropilot-deck .deck-bottom { border-top: 1px solid var(--line); padding-top: 14px; }
+    #agropilot-deck .controls { display: flex; gap: 8px; }
+    #agropilot-deck .deck-button { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--ink); width: 40px; height: 32px; cursor: pointer; display: grid; place-items: center; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+    #agropilot-deck .deck-button:hover { background: var(--red); border-color: var(--red); color: var(--black); }
+    #agropilot-deck .deck-button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    #agropilot-deck .deck-button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    #agropilot-deck .progress { width: min(40vw, 300px); height: 2px; background: var(--line); overflow: hidden; }
+    #agropilot-deck .progress span { display: block; height: 100%; width: 14.285%; background: var(--red); box-shadow: 0 0 14px rgba(237, 59, 56, .8); transform-origin: left center; transition: transform .48s cubic-bezier(.2,.8,.2,1); }
+    #agropilot-deck .footer-note { color: var(--muted); }
+
+    #agropilot-deck .slide.is-active .reveal { animation: reveal .62s both; animation-delay: var(--delay, 0s); }
+    #agropilot-deck .slide.is-active .reveal:nth-child(2) { --delay: .07s; }
+    #agropilot-deck .slide.is-active .reveal:nth-child(3) { --delay: .14s; }
+    #agropilot-deck .slide.is-active .reveal:nth-child(4) { --delay: .21s; }
+    #agropilot-deck .slide.is-active .reveal:nth-child(5) { --delay: .28s; }
+
+    @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scan { 0%, 100% { transform: translateX(-115%); } 48%, 52% { transform: translateX(270%); } }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes pulse { 0% { transform: scale(.35); opacity: .8; } 100% { transform: scale(1.18); opacity: 0; } }
+    @keyframes rotate-grid { to { transform: rotate(405deg); } }
+    @keyframes final-grid { 0%, 100% { translate: 0 0; opacity: .52; } 50% { translate: 0 -15px; opacity: .9; } }
+    @media (max-width: 760px) {
+      #agropilot-deck { height: 100svh; min-height: 0; }
+      #agropilot-deck .deck-shell { height: 100%; min-height: 0; }
+      #agropilot-deck .title-layout, #agropilot-deck .section-layout, #agropilot-deck .truth-stack { grid-template-columns: 1fr; }
+      #agropilot-deck .crop-orbit { width: 210px; margin: 0 auto; }
+      #agropilot-deck .title-side { display: none; }
+      #agropilot-deck .decision-pulse { min-height: 190px; }
+      #agropilot-deck .decision-caption { display: none; }
+      #agropilot-deck .flow { grid-template-columns: 1fr 1fr; }
+      #agropilot-deck .flow-step { min-height: 145px; }
+      #agropilot-deck .flow-step::after { display: none; }
+      #agropilot-deck .agent-system { grid-template-columns: 1fr; gap: 14px; }
+      #agropilot-deck .orchestrator { min-height: 160px; order: 2; }
+      #agropilot-deck .agent-output { order: 3; min-height: 160px; }
+      #agropilot-deck .architecture { grid-template-columns: 1fr; }
+      #agropilot-deck .architecture-col { min-height: 0; }
+      #agropilot-deck .architecture-list { margin-top: 10px; }
+      #agropilot-deck .final-grid { opacity: .32; width: 220px; }
+      #agropilot-deck .closing-line { display: block; }
+      #agropilot-deck .closing-line strong { display: block; margin-top: 8px; }
+      #agropilot-deck .footer-note { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #agropilot-deck *, #agropilot-deck *::before, #agropilot-deck *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;deck-noise&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;deck-grid&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;deck-glow&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;deck-shell&quot;&gt;
+    &lt;header class=&quot;deck-top&quot;&gt;
+      &lt;div class=&quot;brand&quot;&gt;&lt;span class=&quot;brand-mark&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; AgroPilot AI&lt;/div&gt;
+      &lt;div class=&quot;counter&quot; aria-live=&quot;polite&quot;&gt;&lt;strong id=&quot;deck-current&quot;&gt;01&lt;/strong&gt; / 07&lt;/div&gt;
+      &lt;button class=&quot;theme-toggle&quot; type=&quot;button&quot; id=&quot;theme-toggle&quot; aria-pressed=&quot;false&quot;&gt;Modo oscuro&lt;/button&gt;
+    &lt;/header&gt;
+
+    &lt;main class=&quot;slide-stage&quot;&gt;
+      &lt;article class=&quot;slide is-active&quot; data-slide=&quot;0&quot; aria-label=&quot;Diapositiva 1: AgroPilot AI&quot;&gt;
+        &lt;div class=&quot;slide-inner title-layout&quot;&gt;
+          &lt;div&gt;
+            &lt;p class=&quot;eyebrow reveal&quot;&gt;Inteligencia para el campo&lt;/p&gt;
+            &lt;h1 class=&quot;reveal&quot;&gt;Decisiones que &lt;span style=&quot;color:var(--red)&quot;&gt;cultivan&lt;/span&gt; futuro.&lt;/h1&gt;
+            &lt;p class=&quot;lead reveal&quot;&gt;&lt;strong&gt;AgroPilot AI&lt;/strong&gt; transforma datos dispersos en decisiones agrícolas claras, explicables y listas para actuar.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;title-side reveal&quot;&gt;
+            &lt;div class=&quot;crop-orbit&quot; aria-label=&quot;Representación de un sistema agrícola conectado&quot; role=&quot;img&quot;&gt;
+              &lt;span class=&quot;orbit-ring&quot;&gt;&lt;/span&gt;&lt;span class=&quot;orbit-ring&quot;&gt;&lt;/span&gt;&lt;span class=&quot;orbit-ring&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;crop-core&quot;&gt;&lt;/span&gt;&lt;span class=&quot;orbit-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;orbit-dot two&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;orbit-label&quot;&gt;Campo conectado&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;title-line&quot;&gt;&lt;/div&gt;
+            &lt;ul class=&quot;title-points&quot;&gt;
+              &lt;li&gt;&lt;span&gt;01&lt;/span&gt; Productor al centro&lt;/li&gt;
+              &lt;li&gt;&lt;span&gt;02&lt;/span&gt; IA con evidencia&lt;/li&gt;
+              &lt;li&gt;&lt;span&gt;03&lt;/span&gt; Acción bajo control humano&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class=&quot;slide&quot; data-slide=&quot;1&quot; aria-label=&quot;Diapositiva 2: El reto&quot;&gt;
+        &lt;div class=&quot;slide-inner section-layout&quot;&gt;
+          &lt;div&gt;
+            &lt;p class=&quot;eyebrow reveal&quot;&gt;El reto&lt;/p&gt;
+            &lt;h2 class=&quot;reveal&quot;&gt;El campo decide bajo presión.&lt;/h2&gt;
+            &lt;div class=&quot;problem-list reveal&quot;&gt;
+              &lt;div class=&quot;problem-row&quot;&gt;&lt;span class=&quot;problem-no&quot;&gt;01&lt;/span&gt;&lt;strong&gt;Clima que cambia&lt;/strong&gt;&lt;span&gt;riesgo diario&lt;/span&gt;&lt;/div&gt;
+              &lt;div class=&quot;problem-row&quot;&gt;&lt;span class=&quot;problem-no&quot;&gt;02&lt;/span&gt;&lt;strong&gt;Señales en el cultivo&lt;/strong&gt;&lt;span&gt;imagen + contexto&lt;/span&gt;&lt;/div&gt;
+              &lt;div class=&quot;problem-row&quot;&gt;&lt;span class=&quot;problem-no&quot;&gt;03&lt;/span&gt;&lt;strong&gt;Recursos limitados&lt;/strong&gt;&lt;span&gt;riego + nutrición&lt;/span&gt;&lt;/div&gt;
+              &lt;div class=&quot;problem-row&quot;&gt;&lt;span class=&quot;problem-no&quot;&gt;04&lt;/span&gt;&lt;strong&gt;Mercado variable&lt;/strong&gt;&lt;span&gt;precio + oportunidad&lt;/span&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;decision-pulse reveal&quot; role=&quot;img&quot; aria-label=&quot;El centro de la plataforma es la decisión del productor&quot;&gt;
+            &lt;div class=&quot;decision-word&quot;&gt;&lt;span&gt;La&lt;br&gt;decisión&lt;/span&gt;&lt;/div&gt;
+            &lt;p class=&quot;decision-caption&quot;&gt;No se trata de mostrar más datos. Se trata de decidir con más contexto.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class=&quot;slide&quot; data-slide=&quot;2&quot; aria-label=&quot;Diapositiva 3: Cómo funciona&quot;&gt;
+        &lt;div class=&quot;slide-inner wide-layout&quot;&gt;
+          &lt;div&gt;
+            &lt;p class=&quot;eyebrow reveal&quot;&gt;De la señal a la acción&lt;/p&gt;
+            &lt;h2 class=&quot;reveal&quot;&gt;Un sistema que conecta todo el ciclo.&lt;/h2&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;flow reveal&quot; role=&quot;img&quot; aria-label=&quot;Flujo de AgroPilot AI desde la captura de datos hasta el plan semanal&quot;&gt;
+            &lt;div class=&quot;flow-step&quot;&gt;&lt;span class=&quot;flow-icon&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M4 5h16v14H4zM8 9h8M8 13h5&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Registra&lt;/h3&gt;&lt;p&gt;Fincas, parcelas y cultivos.&lt;/p&gt;&lt;/div&gt;&lt;span class=&quot;step-number&quot;&gt;DATOS BASE&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;flow-step&quot;&gt;&lt;span class=&quot;flow-icon&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M4 18 9 12l3 3 4-6 4 9M4 4v14h16&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Observa&lt;/h3&gt;&lt;p&gt;Imágenes, clima, suelo y mercado.&lt;/p&gt;&lt;/div&gt;&lt;span class=&quot;step-number&quot;&gt;SEÑALES&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;flow-step&quot;&gt;&lt;span class=&quot;flow-icon&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Analiza&lt;/h3&gt;&lt;p&gt;Agentes especializados colaboran.&lt;/p&gt;&lt;/div&gt;&lt;span class=&quot;step-number&quot;&gt;IA&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;flow-step&quot;&gt;&lt;span class=&quot;flow-icon&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;m5 12 4 4L19 6&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Explica&lt;/h3&gt;&lt;p&gt;Prioridad, confianza y evidencia.&lt;/p&gt;&lt;/div&gt;&lt;span class=&quot;step-number&quot;&gt;CRITERIO&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;flow-step&quot;&gt;&lt;span class=&quot;flow-icon&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M5 4h14v16H5zM8 8h8M8 12h8M8 16h4&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Planifica&lt;/h3&gt;&lt;p&gt;Acciones y plan semanal.&lt;/p&gt;&lt;/div&gt;&lt;span class=&quot;step-number&quot;&gt;ACCIÓN&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p class=&quot;flow-note reveal&quot;&gt;Cada recomendación llega con un porqué. &lt;strong&gt;El productor conserva la última palabra.&lt;/strong&gt;&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class=&quot;slide&quot; data-slide=&quot;3&quot; aria-label=&quot;Diapositiva 4: Sistema multiagente&quot;&gt;
+        &lt;div class=&quot;slide-inner&quot;&gt;
+          &lt;p class=&quot;eyebrow reveal&quot;&gt;Inteligencia distribuida&lt;/p&gt;
+          &lt;h2 class=&quot;reveal&quot;&gt;No es un chatbot. Es un equipo.&lt;/h2&gt;
+          &lt;div class=&quot;agent-system reveal&quot; role=&quot;img&quot; aria-label=&quot;Cuatro agentes especializados coordinados por un orquestador&quot;&gt;
+            &lt;div class=&quot;agent-rail&quot;&gt;
+              &lt;div class=&quot;agent-node&quot;&gt;&lt;span class=&quot;agent-dot&quot;&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Clima&lt;/h3&gt;&lt;p&gt;Pronóstico y alertas&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;agent-node&quot;&gt;&lt;span class=&quot;agent-dot&quot;&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Sanidad&lt;/h3&gt;&lt;p&gt;Cultivo e imágenes&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;agent-node&quot;&gt;&lt;span class=&quot;agent-dot&quot;&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Recursos&lt;/h3&gt;&lt;p&gt;Riego y fertilización&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;agent-node&quot;&gt;&lt;span class=&quot;agent-dot&quot;&gt;&lt;/span&gt;&lt;div&gt;&lt;h3&gt;Mercado&lt;/h3&gt;&lt;p&gt;Precio y oportunidad&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;orchestrator&quot;&gt;&lt;div class=&quot;orch-core&quot;&gt;&lt;span&gt;AGENTE&lt;br&gt;ORQUESTADOR&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class=&quot;agent-output&quot;&gt;&lt;p class=&quot;node-kicker&quot;&gt;Salida consolidada&lt;/p&gt;&lt;h3&gt;Recomendación priorizada&lt;/h3&gt;&lt;p&gt;Una síntesis que cruza riesgos, contexto del cultivo y evidencias disponibles.&lt;/p&gt;&lt;span class=&quot;confidence&quot;&gt;CONFIANZA 0.91&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class=&quot;slide&quot; data-slide=&quot;4&quot; aria-label=&quot;Diapositiva 5: IA confiable&quot;&gt;
+        &lt;div class=&quot;slide-inner truth-stack&quot;&gt;
+          &lt;div&gt;
+            &lt;p class=&quot;eyebrow reveal&quot;&gt;IA que genera confianza&lt;/p&gt;
+            &lt;h2 class=&quot;reveal&quot;&gt;Cada sugerencia deja un rastro verificable.&lt;/h2&gt;
+            &lt;p class=&quot;lead reveal&quot;&gt;AgroPilot AI diferencia lo que &lt;strong&gt;observa&lt;/strong&gt;, lo que &lt;strong&gt;infiere&lt;/strong&gt; y lo que &lt;strong&gt;recomienda&lt;/strong&gt;.&lt;/p&gt;
+            &lt;div class=&quot;reveal&quot; style=&quot;margin-top:28px&quot;&gt;
+              &lt;div class=&quot;evidence-card&quot;&gt;&lt;p class=&quot;stack-label&quot;&gt;01 · dato observado&lt;/p&gt;&lt;h3&gt;“Cinco días con baja precipitación”&lt;/h3&gt;&lt;p&gt;Fuente y fecha visibles para revisar el contexto.&lt;/p&gt;&lt;/div&gt;
+              &lt;div class=&quot;evidence-card&quot;&gt;&lt;p class=&quot;stack-label&quot;&gt;02 · inferencia de IA&lt;/p&gt;&lt;h3&gt;Riesgo moderado de estrés hídrico&lt;/h3&gt;&lt;p&gt;La conclusión se presenta como inferencia, no como hecho.&lt;/p&gt;&lt;/div&gt;
+              &lt;div class=&quot;evidence-card&quot;&gt;&lt;p class=&quot;stack-label&quot;&gt;03 · acción propuesta&lt;/p&gt;&lt;h3&gt;Revisar riego de la parcela&lt;/h3&gt;&lt;p&gt;Solo avanza si la persona responsable la aprueba.&lt;/p&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;approval-visual reveal&quot;&gt;
+            &lt;div class=&quot;approval-ring&quot;&gt;&lt;div class=&quot;approval-center&quot;&gt;&lt;strong&gt;H+&lt;/strong&gt;&lt;span&gt;HUMANO EN EL LOOP&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class=&quot;approval-tags&quot;&gt;&lt;span class=&quot;tag&quot;&gt;Evidencia&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;Confianza&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;Aprobación&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class=&quot;slide&quot; data-slide=&quot;5&quot; aria-label=&quot;Diapositiva 6: Arquitectura lista para escalar&quot;&gt;
+        &lt;div class=&quot;slide-inner&quot;&gt;
+          &lt;p class=&quot;eyebrow reveal&quot;&gt;Base técnica&lt;/p&gt;
+          &lt;h2 class=&quot;reveal&quot;&gt;Construido para integrar, crecer y responder.&lt;/h2&gt;
+          &lt;div class=&quot;architecture reveal&quot; role=&quot;img&quot; aria-label=&quot;Arquitectura técnica de cliente, API y servicios de AgroPilot AI&quot;&gt;
+            &lt;section class=&quot;architecture-col&quot;&gt;&lt;p class=&quot;node-kicker&quot;&gt;Experiencia&lt;/p&gt;&lt;h3&gt;Frontend&lt;/h3&gt;&lt;ul class=&quot;architecture-list&quot;&gt;&lt;li&gt;Next.js + React &lt;span&gt;APP ROUTER&lt;/span&gt;&lt;/li&gt;&lt;li&gt;TypeScript estricto &lt;span&gt;TIPADO&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Servicios centralizados &lt;span&gt;API CLIENT&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Mocks compatibles &lt;span&gt;PARALELO&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/section&gt;
+            &lt;section class=&quot;architecture-col featured&quot;&gt;&lt;p class=&quot;node-kicker&quot;&gt;Contratos estables&lt;/p&gt;&lt;h3&gt;API modular&lt;/h3&gt;&lt;ul class=&quot;architecture-list&quot;&gt;&lt;li&gt;Node.js + TypeScript &lt;span&gt;NEST / EXPRESS&lt;/span&gt;&lt;/li&gt;&lt;li&gt;REST versionada &lt;span&gt;/API/V1&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Validación y autorización &lt;span&gt;JWT + ZOD&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Swagger / OpenAPI &lt;span&gt;DOCUMENTADA&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/section&gt;
+            &lt;section class=&quot;architecture-col&quot;&gt;&lt;p class=&quot;node-kicker&quot;&gt;Datos y operación&lt;/p&gt;&lt;h3&gt;Servicios&lt;/h3&gt;&lt;ul class=&quot;architecture-list&quot;&gt;&lt;li&gt;PostgreSQL + Prisma &lt;span&gt;PERSISTENCIA&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Imágenes compatibles S3 &lt;span&gt;DIAGNÓSTICO&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Clima y mercado &lt;span&gt;INTEGRACIONES&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Pruebas automáticas &lt;span&gt;CALIDAD&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/section&gt;
+          &lt;/div&gt;
+          &lt;p class=&quot;architecture-foot reveal&quot;&gt;&lt;span&gt;El frontend y backend pueden avanzar en paralelo.&lt;/span&gt;&lt;span&gt;El contrato compartido mantiene la integración segura.&lt;/span&gt;&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class=&quot;slide&quot; data-slide=&quot;6&quot; aria-label=&quot;Diapositiva 7: Cierre&quot;&gt;
+        &lt;div class=&quot;slide-inner final-layout&quot;&gt;
+          &lt;p class=&quot;eyebrow reveal&quot;&gt;El propósito&lt;/p&gt;
+          &lt;h1 class=&quot;final-title reveal&quot;&gt;Menos incertidumbre. &lt;em&gt;Mejores decisiones.&lt;/em&gt;&lt;/h1&gt;
+          &lt;p class=&quot;lead reveal&quot;&gt;AgroPilot AI convierte inteligencia artificial en acompañamiento práctico para quienes hacen posible el campo.&lt;/p&gt;
+          &lt;div class=&quot;closing-line reveal&quot;&gt;&lt;span&gt;Datos + evidencia + criterio humano&lt;/span&gt;&lt;strong&gt;Ese es el futuro que cultivamos.&lt;/strong&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;final-grid&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+
+    &lt;footer class=&quot;deck-bottom&quot;&gt;
+      &lt;span class=&quot;footer-note&quot;&gt;Usa ← →, espacio o desplázate con el zoom&lt;/span&gt;
+      &lt;div class=&quot;progress&quot; aria-label=&quot;Progreso de la presentación&quot;&gt;&lt;span id=&quot;deck-progress&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;controls&quot; aria-label=&quot;Controles de presentación&quot;&gt;
+        &lt;button class=&quot;deck-button&quot; type=&quot;button&quot; id=&quot;deck-prev&quot; aria-label=&quot;Diapositiva anterior&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m15 18-6-6 6-6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+        &lt;button class=&quot;deck-button&quot; type=&quot;button&quot; id=&quot;deck-next&quot; aria-label=&quot;Diapositiva siguiente&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;m9 18 6-6-6-6&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    (() =&gt; {
+      const root = document.getElementById(&#x27;agropilot-deck&#x27;);
+      const slides = Array.from(root.querySelectorAll(&#x27;.slide&#x27;));
+      const current = root.querySelector(&#x27;#deck-current&#x27;);
+      const progress = root.querySelector(&#x27;#deck-progress&#x27;);
+      const previousButton = root.querySelector(&#x27;#deck-prev&#x27;);
+      const nextButton = root.querySelector(&#x27;#deck-next&#x27;);
+      const themeToggle = root.querySelector(&#x27;#theme-toggle&#x27;);
+      let index = 0;
+      let isChanging = false;
+      let isDark = false;
+
+      const showSlide = (nextIndex) =&gt; {
+        if (isChanging || nextIndex === index || nextIndex &lt; 0 || nextIndex &gt;= slides.length) return;
+        isChanging = true;
+        const outgoing = slides[index];
+        const incoming = slides[nextIndex];
+        outgoing.classList.remove(&#x27;is-active&#x27;);
+        outgoing.classList.add(&#x27;is-exiting&#x27;);
+        incoming.classList.add(&#x27;is-active&#x27;);
+        current.textContent = String(nextIndex + 1).padStart(2, &#x27;0&#x27;);
+        progress.style.transform = `scaleX(${(nextIndex + 1) / slides.length})`;
+        window.setTimeout(() =&gt; {
+          outgoing.classList.remove(&#x27;is-exiting&#x27;);
+          index = nextIndex;
+          isChanging = false;
+        }, 620);
+      };
+
+      const next = () =&gt; showSlide(index === slides.length - 1 ? 0 : index + 1);
+      const previous = () =&gt; showSlide(index === 0 ? slides.length - 1 : index - 1);
+      previousButton.addEventListener(&#x27;click&#x27;, previous);
+      nextButton.addEventListener(&#x27;click&#x27;, next);
+      document.addEventListener(&#x27;keydown&#x27;, (event) =&gt; {
+        if (event.key === &#x27;ArrowRight&#x27; || event.key === &#x27; &#x27; || event.key === &#x27;Enter&#x27;) { event.preventDefault(); next(); }
+        if (event.key === &#x27;ArrowLeft&#x27;) { event.preventDefault(); previous(); }
+        if (event.key === &#x27;Home&#x27;) { event.preventDefault(); showSlide(0); }
+        if (event.key === &#x27;End&#x27;) { event.preventDefault(); showSlide(slides.length - 1); }
+        if (event.key.toLowerCase() === &#x27;p&#x27;) toggleTheme();
+      });
+      const toggleTheme = () =&gt; {
+        isDark = !isDark;
+        root.dataset.theme = isDark ? &#x27;dark&#x27; : &#x27;projector&#x27;;
+        themeToggle.textContent = isDark ? &#x27;Modo proyector&#x27; : &#x27;Modo oscuro&#x27;;
+        themeToggle.setAttribute(&#x27;aria-pressed&#x27;, String(isDark));
+      };
+      themeToggle.addEventListener(&#x27;click&#x27;, toggleTheme);
+      progress.style.transform = `scaleX(${1 / slides.length})`;
+    })();
+  &lt;/script&gt;
+&lt;/section&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>
